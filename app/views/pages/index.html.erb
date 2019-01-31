@@ -8,7 +8,8 @@
 				<%= link_to "Book my inspection", "#", class: "btn btn-success btn-lg shadow mt-4" %>
 			</div>
 			<div class="col-md-7" style="position: relative;">
-				<%= image_tag("devlin-oneil.png", width: "100%") %>
+				<%= image_tag("devlin-oneil.png", width: "100%", style: "z-index: 1000;") %>
+				<%#= image_tag("greenyellow-wc.png", width: "75%", style: "position: absolute; top: 10%; opacity: 0.75; z-index: -1;") %>
 				<div class="inspector">
 					<h6 class="font-weight-bold">Chris C.</h6>
 					<p>interNACHI Certified Inspector</p>
@@ -28,19 +29,16 @@
 	<h2 class="h4 text-center">Why Visto?</h2>
 	<div class="row justify-content-center">
 		<div class="col-md-4 mt-3">
-			<%= image_tag("icons8-today.svg") %>
-			<h6 class="font-weight-bold">Same-day</h6>
-			<p>Reports are completed the same day as the inspection, usually immediately after the appointment.</p>
+			<h6 class="font-weight-bold"><%= image_tag("icons8-today.svg", width: "35px") %> Same-day</h6>
+			<p class="font-weight-light">Reports are completed the same day as the inspection, usually immediately after the appointment.</p>
 		</div>
 		<div class="col-md-4 mt-3">
-			<%= image_tag("icons8-read-online.svg") %>
-			<h6 class="font-weight-bold">Online</h6>
-			<p>You report will be accessible online for you to view or download. For home sellers it will be available to prospective buyers.</p>
+			<h6 class="font-weight-bold"><%= image_tag("icons8-read-online.svg", width: "35px") %> Online</h6>
+			<p class="font-weight-light">You report will be accessible online for you to view or download. For home sellers it will be available to prospective buyers.</p>
 		</div>
 		<div class="col-md-4 mt-3">
-			<%= image_tag("icons8-visualization-skill.svg") %>
-			<h6 class="font-weight-bold">Visual</h6>
-			<p>Your home inspection will be displayed on our industry leading visual report giving you
+			<h6 class="font-weight-bold">	<%= image_tag("icons8-image-file.svg", width: "35px") %> Visual</h6>
+			<p class="font-weight-light">Your home inspection will be displayed on our industry leading visual report giving you
 			the confidence to buy.</p>
 		</div>
 	</div>
@@ -51,8 +49,8 @@
 		<div class="col-md-6 my-4">
 			<div class="card shadow" style="border: none;">
 				<div class="card-body">
-					<h6 class="font-weight-bold">Home Seller</h6>
-					<p>Home sellers can get a pre-listing home inspection completed at a discounted price. Control your situation and know what needs fixing before contract negotiation. You also have the option of making your report available to potential buyers to remove friction from buying your home.</p>
+					<h6 class="font-weight-bold">Seller</h6>
+					<p class="font-weight-light">Home sellers and real estate agenets can get a pre-listing home inspection completed at a discounted price. Control your situation and know what needs fixing before contract negotiation. You also have the option of making your report available to potential buyers to remove friction from buying your home.</p>
 					<%= link_to "Book now", "#" %>
 				</div>
 			</div>
@@ -60,8 +58,8 @@
 		<div class="col-md-6 my-4">
 			<div class="card shadow" style="border: none;">
 				<div class="card-body">
-					<h6 class="font-weight-bold">Home Buyer</h6>
-					<p>A home inspection is essential before making any real estate purchase. Choose visto and get a visual report that you can understand and use as you decide which home to buy and through the negotiation process. Our report was built to be read by everyday people, not just real estate experts.</p>
+					<h6 class="font-weight-bold">Buyer</h6>
+					<p class="font-weight-light">A home inspection is essential before making any real estate purchase. Choose visto and get a visual report that you can understand and use as you decide which home to buy and through the negotiation process. Our report is designed to be read by everyday people, not just real estate experts.</p>
 					<%= link_to "Book now", "#" %>
 				</div>
 			</div>
