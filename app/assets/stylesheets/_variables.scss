@@ -79,7 +79,7 @@ $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $theme-colors: map-merge(
   (
-    "primary":    $primary,
+    "primary":    $success,
     "secondary":  $secondary,
     "success":    $success,
     "info":       $info,
@@ -239,9 +239,9 @@ $line-height-sm:              1.5 !default;
 $border-width:                2px !default;
 $border-color:                $gray-300 !default;
 
-$border-radius:               0.25rem !default;
-$border-radius-lg:            0.3rem !default;
-$border-radius-sm:            0.2rem !default;
+$border-radius:               0.125rem !default;
+$border-radius-lg:            0.25rem !default;
+$border-radius-sm:            0.1rem !default;
 
 $rounded-pill:                50rem !default;
 
