@@ -39,6 +39,8 @@ gem 'bootstrap', '~> 4.2.1'
 # Zillow
 gem "rubillow"
 
+gem 'friendly_id', '~> 5.2.4'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

@@ -39,7 +39,8 @@ class AddressesController < ApplicationController
   # POST /addresses
   # POST /addresses.json
   def create
-    @address = Address.new(address_params)
+    @address = Address.create_with(long_address: address_params[:long_address]).where(latitude: address_params[:latitude]).find_or_create_by(
+      longitude: address_params[:longitude])
 
     respond_to do |format|
       if @address.save
@@ -79,7 +80,7 @@ class AddressesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_address
-      @address = Address.find(params[:id])
+      @address = Address.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
