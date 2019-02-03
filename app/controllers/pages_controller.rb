@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+  	@address = Address.new
   end
 
   def pricing
@@ -9,6 +10,7 @@ class PagesController < ApplicationController
   end
   
   def schedule
+  	@address = "kkkk"
   end
 
 end

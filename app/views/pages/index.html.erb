@@ -2,10 +2,22 @@
 	<div class="container pt-4">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-5">
-				<h1 class="h2 font-weight-bold">Home inspections made easy.</h1>
+				<h1 class="h2 font-weight-bold">Home inspections done right.</h1>
 				<p class="lead mt-3">Schedule a house inspection online for your home or
-				your clients starting at $199.</p>
-				<%= link_to "Book my inspection", schedule_path, class: "btn btn-success btn-lg shadow mt-4 button button-cta" %>
+				your clients starting at $299.</p>
+
+				<%= form_for(@address, html: {id: "get-it", autocomplete: "off"}) do |form| %>
+	        <div class="input-group mt-5" id="pac-container">
+	          <input id="pac-input" class="input-icon form-control input-lg" placeholder="Enter your address" type="text" name="address[long_address]" autocomplete="off" style="background-color: white" required>
+	          <%= form.hidden_field :latitude, id: "latInput" %>
+	          <%= form.hidden_field :longitude, id: "lngInput" %>
+	          <span class="input-group-append">
+	            <input type="submit" name="commit" value="Get Started" id="address_submit" class=" button button-cta">
+	          </span>
+	        </div>
+      	<% end %>
+      	<p id="form-error" class="text-danger d-none">Use the Google Autocomplete to find your address.</p>
+				<%#= link_to "Book my inspection", schedule_path, class: "btn btn-success btn-lg shadow mt-4 button button-cta" %>
 			</div>
 			<div class="col-md-7" style="position: relative;">
 				<%= image_tag("devlin-oneil.png", width: "100%", style: "z-index: 1000;") %>
@@ -26,7 +38,7 @@
 </div>
 
 <div class="container mt-5">
-	<h2 class="h4 text-center">Why Visto?</h2>
+	<h2 class="h5 text-center" style="letter-spacing: 0.1rem; text-transform: uppercase;">Why Visto?</h2>
 	<div class="row justify-content-center">
 		<div class="col-md-4 mt-3">
 			<h6 class="font-weight-bold"><%= image_tag("icons8-today.svg", width: "35px") %> Same-day</h6>
@@ -66,3 +78,39 @@
 		</div>
 	</div>
 </div>
+
+<script>
+  function initMap() {
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    var latInput = document.getElementById('latInput');
+    var lngInput = document.getElementById('lngInput');
+    autocomplete.setFields(
+      ['address_components', 'geometry', 'icon', 'name']
+    );
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      latInput.value = place.geometry.location.lat();
+      lngInput.value = place.geometry.location.lng();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+    });
+  }
+
+  var form = document.getElementById('get-it');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    if (document.getElementById('latInput').value === "" || document.getElementById('lngInput').value === "") {
+      document.getElementById('form-error').classList.remove('d-none');
+      document.getElementById('address_submit').disabled = false;
+      return;
+    }
+    form.submit();
+  })
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI&libraries=places&callback=initMap"
+    async defer></script>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :addresses
 	root "pages#index"
 
 	get "/schedule", to: "pages#schedule", as: "schedule"
