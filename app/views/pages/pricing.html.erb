@@ -1,19 +1,38 @@
-<div class="container mt-5">
-	<div class="row justify-content-center">
+<div class="container my-5">
+	<div class="row justify-content-center row-eq-height">
 		<div class="col-md-12 text-center">
-			<h1 class="h4">Pricing</h1>
+			<h1>Pricing</h1>
+			<h2 class="h4 lead text-center">Our pricing is personal. Your final price will be based on your property and home size.</h2>
 		</div>
-		<div class="col-md-5">
-			<div class="card shadow mt-5" style="border: none;">
-				<div class="card-body">
-					<h5 class="card-title">$199</h5>
-    			<h6 class="card-subtitle mb-2 text-muted">Home inspection</h6>
+
+		<div class="col-md-5 mt-5">
+			<div class="card h-100 shadow">
+				<div class="card-body p-5">
+					<div class="d-flex justify-content-center align-items-center flex-column">
+						<div>
+							<small>Starts at</small>
+						</div>
+						<div class="mt-3" style="position: relative; font-size: 5rem; font-weight: 700; line-height: 0.5;">
+							<span style="font-size: 2rem; position:absolute; top: -5px; left: -17px;">$</span>299<span style="position: absolute; top: -10px; font-size: 1.5rem;">95</span>
+						</div>
+						<div class="mt-3">
+							<small>Per Inspection</small>
+						</div>
+					</div>
+					<ul class="list-group list-group-flush mt-5">
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Roof</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Exterior</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Basement, Foundation, Crawlspace, & Structure</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Heating</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Cooling</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Plumbing</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Electrical</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Fireplace</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Attic, Insulation, & Ventilation</li>
+					  <li class="list-group-item"><%= image_tag("icons8-checked.svg", width: "16px") %> Doors, Windows, & Interiors</li>
+					</ul>
+					<%= link_to "Get Started", "#", class: "btn btn-primary mt-5 float-right" %>
 				</div>
-			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item">Cras justo odio</li>
-			    <li class="list-group-item">Dapibus ac facilisis in</li>
-			    <li class="list-group-item">Vestibulum at eros</li>
-			  </ul>
 			</div>
 		</div>
 	</div>

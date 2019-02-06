@@ -21,6 +21,10 @@ class AddressesController < ApplicationController
     sqft = property.lot_size_square_feet
     home_type = property.use_code
     finished_sqft = property.finished_square_feet
+    
+    @bathrooms = property.bathrooms
+    @bedrooms = property.bedrooms
+    @yearbuilt = property.year_built
 
     @hometype = home_type
     @acres = (sqft.to_f / 43560).round(2)
