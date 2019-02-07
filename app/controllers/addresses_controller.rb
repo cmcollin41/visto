@@ -29,6 +29,15 @@ class AddressesController < ApplicationController
     @hometype = home_type
     @acres = (sqft.to_f / 43560).round(2)
     @sqft = finished_sqft
+
+    if @sqft.to_i > 4000
+      cookies[:price] = "499"
+    elsif @sqft.to_i > 2300
+      cookies[:price] = "359"
+    else
+      cookies[:price] = "299"
+    end
+      
   end
 
   # GET /addresses/new
@@ -50,6 +59,7 @@ class AddressesController < ApplicationController
       if @address.save
         format.html { redirect_to @address, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
+        cookies[:price] = "299"
       else
         format.html { render :new }
         format.json { render json: @address.errors, status: :unprocessable_entity }
