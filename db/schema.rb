@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_03_064530) do
+ActiveRecord::Schema.define(version: 2019_02_16_054521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,45 @@ ActiveRecord::Schema.define(version: 2019_02_03_064530) do
     t.index ["slug"], name: "index_addresses_on_slug", unique: true
   end
 
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "mobile"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.text "choice"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "mobile"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -37,4 +76,63 @@ ActiveRecord::Schema.define(version: 2019_02_03_064530) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.float "price", default: 299.0
+    t.time "time"
+    t.date "date"
+    t.bigint "address_id"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_jobs_on_address_id"
+    t.index ["customer_id"], name: "index_jobs_on_customer_id"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.bigint "address_id"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_properties_on_address_id"
+    t.index ["customer_id"], name: "index_properties_on_customer_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "section", default: 1
+    t.boolean "active", default: false, null: false
+    t.text "question"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "address_id"
+    t.bigint "customer_id"
+    t.bigint "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_reports_on_address_id"
+    t.index ["admin_id"], name: "index_reports_on_admin_id"
+    t.index ["customer_id"], name: "index_reports_on_customer_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "report_id"
+    t.integer "question_id"
+    t.integer "choice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_responses_on_report_id"
+  end
+
+  add_foreign_key "choices", "questions"
+  add_foreign_key "jobs", "addresses"
+  add_foreign_key "jobs", "customers"
+  add_foreign_key "properties", "addresses"
+  add_foreign_key "properties", "customers"
+  add_foreign_key "reports", "addresses"
+  add_foreign_key "reports", "admins"
+  add_foreign_key "reports", "customers"
+  add_foreign_key "responses", "reports"
 end

@@ -43,6 +43,11 @@ class AddressesController < ApplicationController
   # GET /addresses/new
   def new
     @address = Address.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /addresses/1/edit
@@ -59,7 +64,10 @@ class AddressesController < ApplicationController
       if @address.save
         format.html { redirect_to @address, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
-        cookies[:price] = "299"
+        cookies[:address] = @address.id
+        cookies[:long_address] = @address.long_address
+        cookies[:latitude] = @address.latitude
+        cookies[:longitude] = @address.longitude
       else
         format.html { render :new }
         format.json { render json: @address.errors, status: :unprocessable_entity }

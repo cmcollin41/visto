@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: 1.5
+  time: 2019-02-07 13:17:01
+  date: 2019-02-07
+  address: one
+  customer: one
+
+two:
+  price: 1.5
+  time: 2019-02-07 13:17:01
+  date: 2019-02-07
+  address: two
+  customer: two

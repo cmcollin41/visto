@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section: 1
+  active: false
+  question: MyText
+
+two:
+  section: 1
+  active: false
+  question: MyText

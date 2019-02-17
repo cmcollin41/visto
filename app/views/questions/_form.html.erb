@@ -1,0 +1,54 @@
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :section %>
+    <%= form.number_field :section, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :question %>
+    <%= form.text_area :question, class: "form-control" %>
+  </div>
+
+  <h6>Choices</h6>
+
+  <div class="card">
+    <div class="card-body">
+      <div data-controller="nested-form">
+        <template data-target="nested-form.template">
+          <%= form.fields_for :choices, Choice.new, child_index: 'NEW_RECORD' do |choice| %>
+            <%= render "choice_fields", form: choice %>
+          <% end %>
+        </template>
+
+        <%= form.fields_for :choices do |choice| %>
+          <%= render "choice_fields", form: choice %>
+        <% end %>
+
+        <div class="mb-3" data-target="nested-form.links">
+          <%= link_to "Add Choice", "#", class: "btn btn-primary btn-sm", data: {action: "click->nested-form#add_association"} %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions mt-5">
+    <%= form.submit "Create Question", class: "btn btn-primary" %>
+  </div>
+<% end %>

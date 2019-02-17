@@ -1,7 +1,12 @@
 <div class="py-2" style="background: #fff; width: 100%; border-bottom: 1px solid #F9F9F9;">
 	<div class="container">
 		<div class="d-flex flex-row-reverse">
-			<span><%= image_tag("icons8-phone.svg", width: "12px;") %> <%= link_to "(801) 850-7800", "#", style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 12px;" %></span>
+			<span><%= image_tag("icons8-phone.svg", width: "12px;") %> <%= link_to "801-899-3794", "#", style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 12px;" %></span>
+			<% if customer_signed_in? %>
+				<span class="mr-3"><%= link_to('LOGOUT', destroy_customer_session_path, method: :delete, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;") %></span>
+			<% else %>
+				<span class="mr-3"><%= link_to('LOGIN', new_customer_session_path, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;")  %></span>
+			<% end %>
 		</div>
 	</div>
 </div>
@@ -21,10 +26,7 @@
 	        <%= link_to "Pricing", pricing_path, class: "nav-link" %>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Inspection</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">Services</a>
+	        <%= link_to "Inspection", inspection_path, class: "nav-link" %>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Company</a>

@@ -1,0 +1,23 @@
+<div class="container mt-5">
+
+  <h1>Questions</h1>
+
+  <% @questions.each do |question| %>
+    <div class="card my-4">
+      <div class="card-body">
+        <%#= question.section %>
+        <%#= question.active %>
+        <h6><%= question.question %></h6>
+        <% question.choices.each do |choice| %>
+          <p><%= choice.choice %></p>
+        <% end %>
+        <%= link_to 'Show', question %>
+        <%= link_to 'Edit', edit_question_path(question) %>
+        <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+  <% end %>
+
+
+  <%= link_to 'New Question', new_question_path %>  
+</div>

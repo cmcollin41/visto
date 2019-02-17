@@ -1,0 +1,66 @@
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<div class="d-flex flex-row justify-content-between align-items-center" style="border-bottom: 2px solid #212121;">
+				<div>
+					<h1><%= @customer.first_name %> <%= @customer.last_name %></h1>
+					<h6 class="font-weight-light" style="letter-spacing: 0.1rem;"><%= @address.long_address %></h6>
+				</div>
+				<%= link_to "New Inspection", new_address_path, remote: true, data: [toggle: "modal", target: "#newAddress"], class: "btn btn-primary" %>
+			</div>
+
+			<h6 class="mt-5 font-weight-light" style="letter-spacing: 0.1rem; text-transform: uppercase;">Upcoming Inspections</h6>
+			<hr>
+			<div class="card" style="border: 1px dashed #212121">
+  			<div class="card-body">
+  				<div class="d-flex flex-row justify-content-between align-items-center">
+  					<span>$<%= cookies[:price] %><span class="font-weight-light"> - General Home Inspection</span></span>
+  					<%= link_to "Reschedule", "#", class: "btn btn-warning" %>
+  				</div>
+  			</div>
+	    </div>
+			<h6 class="mt-5 font-weight-light" style="letter-spacing: 0.1rem; text-transform: uppercase;">Reports</h6>
+			<hr>
+			<div class="card" style="border: 1px dashed #212121">
+  			<div class="card-body">
+  				<div class="d-flex flex-row justify-content-between align-items-center">
+  					<div>
+  						<span>General Home Inspection</span><br>
+  						<small class="font-weight-light"><%= @address.long_address %></small>
+  					</div>
+  					<%= link_to "View Report", "#", class: "btn btn-primary" %>
+  				</div>
+  			</div>
+	    </div>
+		</div>
+	</div>
+</div>
+
+
+  <div id="newAddress" class="modal hide fade" role="dialog" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Find Your Address</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for(@address, html: {id: "get-it", autocomplete: "off"}) do |form| %>
+              <div class="input-group mt-5" id="pac-container">
+                <input id="pac-input" class="input-icon form-control input-lg" placeholder="Enter your address" type="text" name="address[long_address]" autocomplete="off" style="background-color: white" required>
+                <%= form.hidden_field :latitude, id: "latInput" %>
+                <%= form.hidden_field :longitude, id: "lngInput" %>
+                <span class="input-group-append">
+                  <input type="submit" name="commit" value="Get Started" id="address_submit" class=" button button-cta">
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>

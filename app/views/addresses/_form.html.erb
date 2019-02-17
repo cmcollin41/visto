@@ -1,37 +1,10 @@
-<%= form_with(model: address, local: true) do |form| %>
-  <% if address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
-
-      <ul>
-      <% address.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :long_address %>
-    <%= form.text_field :long_address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+<%= form_for(@address, html: {id: "get-it", autocomplete: "off"}) do |form| %>
+  <div class="input-group mt-5" id="pac-container">
+    <input id="pac-input" class="input-icon form-control input-lg" placeholder="Enter your address" type="text" name="address[long_address]" autocomplete="off" style="background-color: white" required>
+    <%= form.hidden_field :latitude, id: "latInput" %>
+    <%= form.hidden_field :longitude, id: "lngInput" %>
+    <span class="input-group-append">
+      <input type="submit" name="commit" value="Get Started" id="address_submit" class=" button button-cta">
+    </span>
   </div>
 <% end %>

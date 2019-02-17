@@ -1,0 +1,39 @@
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-10">
+
+			<p>
+			  <strong>Address:</strong>
+			  <%= @report.address.long_address %>
+			</p>
+
+			<div>
+			  <strong>Customer:</strong>
+				<p><%= @report.customer.name %></p>
+			  <p><%= @report.customer.email %></p>
+			</div>
+
+			<div>
+			  <strong>Inspector:</strong>
+			  <p><%= @report.admin.name %></p>
+			  <p><%= @report.admin.email %></p>
+			</div>
+
+			<% @questions.each do |q| %>
+				<div class="card">
+					<div class="card body">
+						<p><%= q.question %></p>
+						<% @r = @responses.find_by(question_id: q) %>
+						<%= Choice.find(@r.choice_id).choice %>
+					</div>
+				</div>
+			<% end %>
+
+			 <%= link_to 'New Question', new_question_path %>  
+
+
+			<%= link_to 'Edit', edit_report_path(@report) %> |
+			<%= link_to 'Back', reports_path %>
+		</div>
+	</div>
+</div>
