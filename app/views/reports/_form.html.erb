@@ -24,6 +24,12 @@
           </div>
         <% end %>
       </div>
+      <div class="form-group mt-4">
+        <%= response.text_area :response, class: "form-control", placeholder: "Response", rows: "5" %>
+      </div>
+      <div class="form-group mt-4">
+        <%= response.file_field :images, multiple: true%>
+      </div>
     <% end %>
   <% end %>
 
