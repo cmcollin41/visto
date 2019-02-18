@@ -3,6 +3,7 @@ class JobsController < ApplicationController
   before_action :next_weekdays, only: [:new, :edit]
   before_action :available_times, only: [:new, :edit]
   before_action :authenticate_customer!, only: [:new]
+  before_action :authenticate_admin!, except: [:new, :create]
 
   # GET /jobs
   # GET /jobs.json

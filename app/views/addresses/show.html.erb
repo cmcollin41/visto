@@ -1,13 +1,6 @@
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
-		<% admin_signed_in? %>
-			<div class="col-md-12">
-				<div class="float-right">
-					<%= link_to "Create Report", new_report_path(current_admin, @address), class: "btn btn-primary" %>
-				</div>
-			</div>
-		<% end %>
 		<div class="col-md-6">
 			<%= image_tag("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=#{@address.latitude},#{@address.longitude}&fov=90&pitch=0&key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI", width: "100%", class: "streetview") %>
 

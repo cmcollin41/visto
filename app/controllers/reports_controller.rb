@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update]
 
   # GET /reports
   # GET /reports.json
@@ -16,7 +17,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = Report.new
+    @report = current_admin.reports.new
     @response = Response.new
     @questions = Question.all
   end
@@ -28,7 +29,7 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new(report_params)
+    @report = current_admin.reports.new(report_params)
 
     respond_to do |format|
       if @report.save
