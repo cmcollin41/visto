@@ -7,7 +7,7 @@
       <div class="card-body">
         <%#= question.section %>
         <%#= question.active %>
-        <h6><%= question.question %></h6>
+        <h2><%= question.question %></h2>
         <% question.choices.each do |choice| %>
           <p><%= choice.choice %></p>
         <% end %>
