@@ -18,7 +18,7 @@
   <body>
     <% if admin_signed_in? %>
       <div class="text-white row justify-content-center align-items-center py-3 px-3" style=" width: 100%; background: #f44336;">
-        <h6>You're signed in as an admin. <%= link_to "Logout", destroy_admin_session_path, method: :delete %></h6>
+        <h6>You're signed in as an admin. <%= link_to "Logout", destroy_admin_session_path, method: :delete, class: "text-white" %></h6>
       </div>
     <% end %>
     <%= render "shared/navbar" %>
