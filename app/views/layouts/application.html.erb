@@ -16,7 +16,11 @@
   </head>
 
   <body>
-
+    <% if admin_signed_in? %>
+      <div class="text-center" style=" width: 100%; height: 50px; background: #f44336; color: white;">
+        <h6>You're signed in as an admin.</h6>
+      </div>
+    <% end %>
     <%= render "shared/navbar" %>
     <%= yield %>
 
