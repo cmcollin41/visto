@@ -7,7 +7,7 @@ class Customer < ApplicationRecord
 
   has_many :jobs
   has_many :properties
-  has_many :reports
+  has_many :reports, inverse_of: :customer
 
 
 

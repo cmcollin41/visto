@@ -6,7 +6,7 @@ class Admin < ApplicationRecord
 
   enum role: { inspector: 0, super: 100 }
 
-  has_many :reports
+  has_many :reports, inverse_of: :admin
 
   def name
   	self.first_name + " " + self.last_name

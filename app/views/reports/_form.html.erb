@@ -1,37 +1,31 @@
-<%= form_with(model: report, local: true) do |form| %>
-  <% if report.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
+<%= form_with(model: report, data: {controller: "autosave", target: "autosave.form", action: "ajax:success->autosave#success ajax:error->autosave#error"}) do |form| %>
 
-      <ul>
-      <% report.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div style="position:absolute;top: 0; left: 0; right: 0;width: 100%;" class="py-2 row justify-content-center align-items-center">
+  <span class="p-3" data-target="autosave.status"></span>
+</div>
+
+
+  <% @responses.each.with_index do |response,i| %>
+    <%= form.fields_for :responses, response do |r| %>
+    <h3><%= response.question.question %></h3>
+    <div class="row mt-5">
+      <% response.question.choices.each do |choice| %>
+        <div class="col-md-3">
+          <%= r.label choice.choice %>
+          <%= r.radio_button :choice_id, choice.id, data: {action: "click->autosave#save"} %>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-
-  <% @questions.each do |question| %>
-    <h5 class="font-weight-bold mt-5"><%= question.question %></h5>
-    <%= form.fields_for :responses, Response.new do |response| %>
-      <%= response.hidden_field :question_id, value: question.id %>
-      <div class="row">
-        <% question.choices.each do |choice| %>
-          <div class="col-md-3">
-            <%= response.label choice.choice %>
-            <%= response.radio_button :choice_id, choice.id %>
-          </div>
-        <% end %>
-      </div>
-      <div class="form-group mt-4">
-        <%= response.text_area :response, class: "form-control", placeholder: "Response", rows: "5" %>
-      </div>
-      <div class="form-group mt-4">
-        <%= response.file_field :images, multiple: true%>
-      </div>
+    <div class="form-group mt-4">
+      <%= r.text_area :response, class: "form-control", placeholder: "Response", rows: "5", data: {action: "keyup->autosave#save"} %>
+    </div>
+    <div class="form-group mt-4">
+      <%= r.file_field :images, multiple: true, data: {action: "change->autosave#save"} %>
+    </div>
+    <hr>
     <% end %>
   <% end %>
+ 
 
   <%= form.hidden_field :address_id, value: params[:address] %>
   <%= form.hidden_field :customer_id, value: params[:customer] %>
