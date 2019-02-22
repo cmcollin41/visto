@@ -8,8 +8,10 @@
 			<% @questions.each do |q| %>
 				<div class="mt-5">
 						<% r = @responses.find_by(question_id: q) %>
-						<% r.images.each do |img| %>
-							<%= image_tag(img, width: "20%") %>
+						<% if r.images.present? %>
+							<% r.images.each do |img| %>
+								<%= image_tag(img, width: "20%") %>
+							<% end %>
 						<% end %>
 						<p class="mt-3"><%= q.question %> <%= Choice.find(r.choice_id).choice %></p>
 						<p><%= r.response %></p>
