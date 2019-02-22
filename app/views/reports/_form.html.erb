@@ -1,8 +1,12 @@
 <%= form_with(model: report, data: {controller: "autosave", target: "autosave.form", action: "ajax:success->autosave#success ajax:error->autosave#error"}) do |form| %>
 
-<div style="position:absolute;top: 0; left: 0; right: 0;width: 100%;" class="py-2 row justify-content-center align-items-center">
-  <span class="p-3" data-target="autosave.status"></span>
-</div>
+  <div style="position:absolute;top: 0; left: 0; right: 0;width: 100%;" class="py-2 row justify-content-center align-items-center">
+    <span class="p-3" data-target="autosave.status"></span>
+  </div>
+
+
+  <%= form.text_field :address_id, value: params[:address] %>
+  <%= form.text_field :customer_id, value: params[:customer] %>
 
 
   <% @responses.each.with_index do |response,i| %>
@@ -27,8 +31,6 @@
   <% end %>
  
 
-  <%= form.hidden_field :address_id, value: params[:address] %>
-  <%= form.hidden_field :customer_id, value: params[:customer] %>
 
   <div class="actions">
     <%= form.submit "Create Report", class: "btn btn-primary" %>
