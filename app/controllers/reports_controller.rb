@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @responses = Response.where(report_id: @report)
-    @questions = Question.all
+    @questions = Question.where(active: true).includes(:choices).includes(:responses)
   end
 
   # GET /reports/new
@@ -30,8 +30,8 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/edit
   def edit
-    @questions = Question.all.where(active: true)
-    @responses = @report.responses
+    #@questions = Question.where(active: true).includes(:choice).includes(:response)
+    @responses = @report.responses.includes(:question)
   end
 
   # POST /reports
