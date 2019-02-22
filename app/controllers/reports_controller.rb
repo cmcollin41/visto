@@ -13,6 +13,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @responses = Response.where(report_id: @report)
+    @questions = Question.all
   end
 
   # GET /reports/new
