@@ -12,16 +12,16 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-    @responses = Response.where(report_id: @report)
+    @responses = @report.responses
     @questions = Question.where(active: true).includes(:choices).includes(:responses)
   end
 
   # GET /reports/new
   def new
     @report = current_admin.reports.create(address_id: params[:address], customer_id: params[:customer])
-    questions = Question.all
+    questions = Question.where(active: true)
     
-    questions.where(active: true).each do |q|
+    questions.each do |q|
       @report.responses.create(question_id: q.id)
     end
 

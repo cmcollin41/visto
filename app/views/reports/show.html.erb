@@ -8,7 +8,7 @@
 			<% @questions.each do |q| %>
 				<div class="mt-5">
 						<% r = @responses.find_by(question_id: q) %>
-						<% if r.images.present? %>
+						<% if r.images.attached? %>
 							<% r.images.each do |img| %>
 								<%= image_tag(img, width: "20%") %>
 							<% end %>
