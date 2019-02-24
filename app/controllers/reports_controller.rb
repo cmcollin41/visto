@@ -18,19 +18,22 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = current_admin.reports.create
+    @report = current_admin.reports.create(address_id: params[:address], customer_id: params[:customer])
     questions = Question.all
     
     questions.where(active: true).each do |q|
       @report.responses.create(question_id: q.id)
     end
 
-    redirect_to edit_report_path(@report, address: params[:address], customer: params[:customer])
+    redirect_to edit_report_path(@report)
   end
 
   # GET /reports/1/edit
   def edit
     #@questions = Question.where(active: true).includes(:choice).includes(:response)
+    @address = Address.find(@report.address_id).long_address
+    @customer = Customer.find(@report.customer_id).name
+    @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).group_by(&:section)
     @responses = @report.responses.includes(:question)
   end
 
