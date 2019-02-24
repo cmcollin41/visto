@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
     #@questions = Question.where(active: true).includes(:choice).includes(:response)
     @address = Address.find(@report.address_id).long_address
     @customer = Customer.find(@report.customer_id).name
-    @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).group_by(&:section)
+    @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).group_by(&:section).values.sort
     @responses = @report.responses.includes(:question)
   end
 

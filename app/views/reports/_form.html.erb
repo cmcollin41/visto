@@ -10,7 +10,7 @@
 
 
   <% @questions.each.with_index do |q,i| %>
-    <% q[1].each do |qq| %>
+    <% q.each do |qq| %>
       <span class="badge badge-pill badge-primary"><%= qq.section %></span>
       <%= form.fields_for :responses, qq.responses.first do |r| %>
         <h6><%= qq.question %></h6>
