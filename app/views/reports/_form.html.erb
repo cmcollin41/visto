@@ -16,11 +16,10 @@
       <div style="border-bottom: 2px solid #111; width: 100%;"></div>
 
         <% q.each do |qq| %>
-          <span class="badge badge-pill badge-primary"><%= qq.section %></span>
           <%= form.fields_for :responses, qq.responses.first do |r| %>
-            <h6><%= qq.question %></h6>
+            <h3 class="mt-5"><%= qq.question %></h3 class="mt-5">
 
-            <% qq.choices.each do |choice| %>
+            <% qq.choices.order(id: :asc).each do |choice| %>
               <div class="col-md-3">
                 <%= r.label choice.choice %>
                 <%= r.radio_button :choice_id, choice.id, data: {action: "click->autosave#save"} %>
@@ -30,9 +29,12 @@
             <div class="form-group mt-4">
               <%= r.text_area :response, class: "form-control", placeholder: "Response", rows: "5", data: {action: "keyup->autosave#save"} %>
             </div>
+
+    
+<!-- 
             <div class="form-group mt-4">
-              <%= r.file_field :images, multiple: true, data: {action: "change->autosave#save"} %>
-            </div>
+              <%#= r.file_field :images, multiple: true, data: {action: "change->autosave#save"} %>
+            </div> -->
 
           <% end %>
         <% end %>

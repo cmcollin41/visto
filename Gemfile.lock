@@ -265,6 +265,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   jquery-rails
+  mini_magick
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.2)

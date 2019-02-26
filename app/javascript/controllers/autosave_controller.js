@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "form", "status" ]
+  static targets = [ "form", "status", "image" ]
 
   connect() {
   	this.timeout = null
@@ -27,7 +27,7 @@ export default class extends Controller {
   	}, 3000)
   }
 
-   error() {
+  error() {
   	this.statusTarget.textContent = "Error!"
   	this.statusTarget.classList.add = "bg-danger"
 
@@ -36,6 +36,13 @@ export default class extends Controller {
   		this.statusTarget.classList.remove = "bg-danger"
   	}, 3000)
   }
+
+  destroy(event) {
+    event.preventDefault()
+    alert('delete me bitch');
+    this.imageTarget.remove()
+  }
+
 
 
 
