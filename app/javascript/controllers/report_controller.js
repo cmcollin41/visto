@@ -28,10 +28,6 @@ export default class extends Controller {
   	}, this.duration);
   }
 
-  // clear(){
-  //   this.itemTarget.value = ''
-  //   this.itemTarget.removeAttribute("disabled")
-  // }
 
   success() {
   	this.statusTarget.textContent = "Saved!"
