@@ -1,4 +1,4 @@
-<%= form_with(model: report, data: {target: "report.form report.save", action: "ajax:success->report#success ajax:success->report#clear ajax:error->report#error"}) do |form| %>
+<%= form_with(model: report, data: {target: "report.form report.save", action: "ajax:success->report#success ajax:error->report#error"}) do |form| %>
 
   <div style="position:absolute;top: 0; left: 0; right: 0;width: 100%;" class="py-2 row justify-content-center align-items-center">
     <span class="p-3" data-target="report.status"></span>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group mt-4">
-            <%= r.file_field :images, multiple: true, data: {action: "change->report#save ajax:success->report#clear", target: "report.item"}, id: "file" %>
+            <%= r.file_field :images, multiple: true, data: {action: "change->report#save", target: "report.item"} %>
         </div>
 
       <% end %>

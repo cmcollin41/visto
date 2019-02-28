@@ -28,22 +28,30 @@ export default class extends Controller {
   	}, this.duration);
   }
 
-  clear(){
-    this.itemTarget.value = ''
-    this.itemTarget.removeAttribute("disabled")
-
-    var url = this.data.get("url") + "&question=" + this.data.get("section")
-
-    fetch(url)
-      .then(response => response.text())
-      .then(html => {
-        this.element.innerHTML = html
-      })
-  }
+  // clear(){
+  //   this.itemTarget.value = ''
+  //   this.itemTarget.removeAttribute("disabled")
+  // }
 
   success() {
   	this.statusTarget.textContent = "Saved!"
   	this.statusTarget.setAttribute("class", "bg-success")
+
+   
+    if (this.itemTarget.value) {
+      var url = this.data.get("url") + "&question=" + this.data.get("section")
+
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          this.element.innerHTML = html
+        })
+
+      this.itemTarget.value = ""
+      this.itemTarget.removeAttribute("disabled")
+    }
+
+
 
   	setTimeout(() => {
   		this.statusTarget.textContent = ""
