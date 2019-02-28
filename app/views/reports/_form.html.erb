@@ -1,7 +1,6 @@
 <%= form_with(model: report, data: {target: "report.form report.save", action: "ajax:success->report#success ajax:error->report#error"}) do |form| %>
 
-  <div style="position:absolute;top: 0; left: 0; right: 0;width: 100%;" class="py-2 row justify-content-center align-items-center">
-    <span class="p-3" data-target="report.status"></span>
+  <div data-target="report.status" style="position:fixed; top: 0; left: 0; right: 0; z-index: 100000;">
   </div>
 
   <div class="mt-5">

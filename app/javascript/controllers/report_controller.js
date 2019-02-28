@@ -23,6 +23,7 @@ export default class extends Controller {
   	clearTimeout(this.timeout)
 
   	this.timeout = setTimeout(() => {
+      this.statusTarget.setAttribute("class", "bg-light text-center py-3 w100")
   		this.statusTarget.textContent = "Saving..."
   		Rails.fire(this.formTarget, 'submit')
   	}, this.duration);
@@ -30,22 +31,23 @@ export default class extends Controller {
 
 
   success() {
-  	this.statusTarget.textContent = "Saved!"
-  	this.statusTarget.setAttribute("class", "bg-success")
+  	this.statusTarget.setAttribute("class", "bg-success text-center py-3 w100")
+    this.statusTarget.textContent = "Saved!"
 
-   
-    if (this.itemTarget.value) {
-      var url = this.data.get("url") + "&question=" + this.data.get("section")
 
-      fetch(url)
-        .then(response => response.text())
-        .then(html => {
-          this.element.innerHTML = html
-        })
+    this.itemTargets.forEach((el, i) => {
+      if (el.value) {
+        var url = this.data.get("url") + "&question=" + this.data.get("section")
+        fetch(url)
+          .then(response => response.text())
+          .then(html => {
+            this.element.innerHTML = html
+          })
 
-      this.itemTarget.value = ""
-      this.itemTarget.removeAttribute("disabled")
-    }
+        this.itemTarget.value = ""
+        this.itemTarget.removeAttribute("disabled")
+      }
+    })
 
 
 
@@ -56,8 +58,8 @@ export default class extends Controller {
   }
 
   error() {
-  	this.statusTarget.textContent = "Error!"
-  	this.statusTarget.classList.add = "bg-danger"
+  	this.statusTarget.classList.add = "bg-danger text-center py-3 w100"
+    this.statusTarget.textContent = "Error!"
 
   	setTimeout(() => {
   		this.statusTarget.textContent = ""

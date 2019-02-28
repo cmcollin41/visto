@@ -16,11 +16,6 @@
   </head>
 
   <body>
-    <% if admin_signed_in? %>
-      <div class="text-white row justify-content-center align-items-center p-3 w100" style="background: #f44336;">
-        <h6>You're signed in as an admin. <%= link_to "Logout", destroy_admin_session_path, method: :delete, class: "text-white" %></h6>
-      </div>
-    <% end %>
     <%= render "shared/navbar" %>
     <%= yield %>
 

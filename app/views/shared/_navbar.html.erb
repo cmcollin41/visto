@@ -1,12 +1,19 @@
 <div class="py-2" style="background: #fff; width: 100%; border-bottom: 1px solid #F9F9F9;">
 	<div class="container">
-		<div class="d-flex flex-row-reverse">
-			<span><%= image_tag("icons8-phone.svg", width: "12px;") %> <%= link_to "801-899-3794", "#", style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 12px;" %></span>
-			<% if customer_signed_in? %>
-				<span class="mr-3"><%= link_to('LOGOUT', destroy_customer_session_path, method: :delete, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;") %></span>
-			<% else %>
-				<span class="mr-3"><%= link_to('LOGIN', new_customer_session_path, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;")  %></span>
-			<% end %>
+		<div class="d-flex justify-content-between">
+			<div>
+				<% if admin_signed_in? %>
+		      <small>You're signed in as an admin. <%= link_to "Logout", destroy_admin_session_path, method: :delete %></small>
+    		<% end %>
+			</div>
+			<div>
+				<% if customer_signed_in? %>
+					<span class="mr-3"><%= link_to('LOGOUT', destroy_customer_session_path, method: :delete, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;") %></span>
+				<% else %>
+					<span class="mr-3"><%= link_to('LOGIN', new_customer_session_path, style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 11px;")  %></span>
+				<% end %>
+				<span class="ml-2"><%= image_tag("icons8-phone.svg", width: "12px;") %> <%= link_to "801-899-3794", "#", style: "color: rgba(0, 0, 0, 0.5); letter-spacing: 0.1rem; font-size: 12px;" %></span>
+			</div>
 		</div>
 	</div>
 </div>
