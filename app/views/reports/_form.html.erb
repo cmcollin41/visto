@@ -35,8 +35,10 @@
       <% end %>
       <hr>
     <% end %>
-    <%= link_to "Back", "#", data: {action: "click->report#back"} %>
-    <%= link_to "Next", "#", data: {action: "click->report#next"} %>
+    <div class="row justify-content-between">
+      <%= link_to "Back", "#", class: "btn btn-primary" data: {action: "click->report#back"} %>
+      <%= link_to "Next", "#", class: "btn btn-primary" data: {action: "click->report#next"} %>
+    </div>
   </div>
 <!--  
   <div class="actions">

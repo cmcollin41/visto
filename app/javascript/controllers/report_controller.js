@@ -73,6 +73,7 @@ export default class extends Controller {
       .then(response => response.text())
       .then(html => {
         this.element.innerHTML = html
+        window.scrollTo(0,0)
       })
     
   }
@@ -88,6 +89,7 @@ export default class extends Controller {
       .then(response => response.text())
       .then(html => {
         this.element.innerHTML = html
+        window.scrollTo(0,0)
       })
     
   }
