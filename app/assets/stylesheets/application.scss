@@ -83,7 +83,7 @@
     line-height: 1;
     text-align: center;
     cursor: pointer;
-    background-color: #212121;
+    background-color: #111;
     color: #fff;
 }
 .button-cta{
@@ -94,7 +94,7 @@
     position: relative;
     text-align: left;
 	&:before{
-	   content: image-url("arrow-right-single-small.svg");
+	  content: image-url("arrow-right-single-small.svg");
     position: absolute;
     right: 16px;
     top: 50%;

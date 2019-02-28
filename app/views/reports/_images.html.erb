@@ -1,0 +1,10 @@
+<% response.images.each do |img| %>
+  <%= link_to image_tag(img, width: "100px", data: {action: "click->images#choose", target: "images.item", id: "#{img.blob.id}"}) %>
+<% end %>
+
+<div class="form-group mt-4">
+	<%= form.fields_for response do |rr| %>
+  	<%= rr.file_field :images, multiple: true, data: {action: "change->autosave#save ajax:success->autosave#clear", target: "autosave.item"}, id: "file" %>
+	<% end %>
+</div>
+

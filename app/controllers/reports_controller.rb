@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :form]
   before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update]
 
   # GET /reports
@@ -30,12 +31,30 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/edit
   def edit
-    #@questions = Question.where(active: true).includes(:choice).includes(:response)
     @address = Address.find(@report.address_id).long_address
     @customer = Customer.find(@report.customer_id).name
     @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc).group_by(&:section).values.sort
-    @responses = @report.responses.includes(:question)
+    @responses = @report.responses.includes(:question) 
+
+    respond_to do |format|
+      format.html
+    end
   end
+
+  def form
+    #include params to filter the data
+
+    @questions = Question.where("section = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
+    @responses = @report.responses.includes(:question)   
+    render partial: 'form', locals: {report: @report, questions: @questions, responses: @responses}, layout: false
+  end
+
+  def images
+    @question = Question.find(params[:question])
+    @response = @question.responses.first
+    render partial: 'images', locals:{response: @response, r: params[:r]}, layout: false
+  end
+
 
   # POST /reports
   # POST /reports.json
@@ -78,6 +97,15 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def delete_image   
+    @image = ActiveStorage::Attachment.find(params[:id])
+    @image.purge_later
+
+    respond_to do |format|
+      format.js
     end
   end
 

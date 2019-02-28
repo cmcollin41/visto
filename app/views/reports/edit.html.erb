@@ -3,11 +3,16 @@
 		<h1 class="bold-header text-center">Inspection Report</h1>
 	</div>
 </div>
-<div class="container mt-5">
+<div class="container mt-5" data-controller="">
 	<div class="row justify-content-center">
 		<div class="col-md-10">
+			<h6><%= @address %></h6>
+  		<h6><%= @customer %></h6>
 
-			<%= render 'form', report: @report %>
+			<div data-controller="report" data-target="report.next report.back" data-report-section="1" data-report-url="/form?id=<%= @report.id %>">
+				<!-- inject report form via stimulus.js -->
+			</div>
+
 
 			<%= link_to 'Show', @report %> |
 			<%= link_to 'Back', reports_path %>

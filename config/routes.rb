@@ -30,5 +30,11 @@ Rails.application.routes.draw do
   get "/pricing", to: "pages#pricing", as: "pricing"
   get "/about", to: "pages#about", as: "about"
   get "/inspection", to: "pages#inspection", as: "inspection"
+
+  get "/images", to: "reports#images", as: "images"
+  get "/form", to: "reports#form", as: "form"
+
+
+  delete "/delete_image", to: "reports#delete_image", as: "delete_image"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
