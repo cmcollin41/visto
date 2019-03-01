@@ -6,16 +6,18 @@ export default class extends Controller {
   connect() {
   	this.timeout = null
   	this.duration = this.data.get("duration") || 1000
-     this.load()
+    this.load()
   }
 
 
   load() {
+    document.getElementById("loader").classList.toggle("d-none")
     var url = this.data.get("url") + "&question=" + this.data.get("section")
     fetch(url)
       .then(response => response.text())
       .then(html => {
         this.element.innerHTML = html
+        document.getElementById("loader").classList.toggle("d-none")
       })
     }
 
@@ -70,22 +72,29 @@ export default class extends Controller {
 
   next(e){
     e.preventDefault()
+    window.scrollTo(0,0)
+    document.getElementById("loader").classList.toggle("d-none")
     var num = parseInt(this.data.get("section"))
     this.data.set("section", num+1)
 
     var url = this.data.get("url") + "&question=" + this.data.get("section")
     console.log(url)
     fetch(url)
-      .then(response => response.text())
+      .then(response => response.text(
+      ))
       .then(html => {
         this.element.innerHTML = html
-        window.scrollTo(0,0)
+        
+        document.getElementById("loader").classList.toggle("d-none")
       })
     
   }
 
   back(e){
     e.preventDefault()
+    window.scrollTo(0,0)
+    document.getElementById("loader").classList.toggle("d-none")
+
     var num = parseInt(this.data.get("section"))
     this.data.set("section", num-1)
 
@@ -95,7 +104,7 @@ export default class extends Controller {
       .then(response => response.text())
       .then(html => {
         this.element.innerHTML = html
-        window.scrollTo(0,0)
+        document.getElementById("loader").classList.toggle("d-none")
       })
     
   }
@@ -105,7 +114,7 @@ export default class extends Controller {
   choose(e) {
     e.preventDefault()
     this.currentItem = e.target.getAttribute('data-id')
-
+    e.target.classList.add("deleting")
     this.imageTargets.forEach((el, i) => {
       if (this.currentItem === el.getAttribute("data-id")) {
         fetch('/delete_image',{
@@ -113,9 +122,13 @@ export default class extends Controller {
           credentials: 'include',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({id: el.getAttribute('data-id')})
-        })
-
-        el.remove()
+        }).then(function(response) {
+          if(response.ok) {
+            el.remove()
+          }
+        }).catch(function(error) {
+           e.target.classList.remove("deleting")
+        });
       }
     })
   }

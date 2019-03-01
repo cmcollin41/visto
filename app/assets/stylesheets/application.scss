@@ -194,3 +194,40 @@
   background-repeat: repeat;
   background-size: cover;
 }
+
+
+.deleting {
+  z-index: 1;
+  width: 85px;
+  height: 85px;
+  border: 5px solid #f9f9f9;
+  border-radius: 50%;
+  border-top: 5px solid #ee3e4c;
+  width: 85px;
+  height: 85px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f9f9f9;
+  border-radius: 50%;
+  border-top: 16px solid #3ddb93;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
