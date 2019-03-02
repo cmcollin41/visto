@@ -114,8 +114,39 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6">
-					<h6>Schedule me</h6>
-					<button type="button" id="nextBtn" class="btn btn-primary" data-signup-id="3" data-action="click->signup#next">Select Service</button>
+					<%= form_with(model: @job, local: true) do |form| %>
+					  <% if @job.errors.any? %>
+					    <div id="error_explanation">
+					      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+					      <ul>
+					      <% @job.errors.full_messages.each do |message| %>
+					        <li><%= message %></li>
+					      <% end %>
+					      </ul>
+					    </div>
+					  <% end %>
+
+					  <div class="d-flex flex-row justify-content-between align-items-center">
+					    <div class="form-row">
+					      <div class="col-12 col-md-6">
+					        <%= form.select :date, @days.map { |d| [d.strftime("%a, %b %d"), d]}, {prompt: "Date"}, {required: true, class: "custom-select", id: "job-date"}  %>
+					      </div>  
+					      <div class="col-12 col-md-6">
+					        <%= form.select :time, @times.map { |t| [t.strftime("%I:%M %p")]}, {prompt: "Time"}, {required: true, class: "custom-select", id: "job-time"} %>
+					      </div>
+					    </div>
+					  </div>
+
+					  <%= form.hidden_field :price, value: cookies[:price], id: "job-price" %>
+					  <%= form.hidden_field :address_id, value: cookies[:address], id: "job-address-id" %>
+					  <% if customer_signed_in? %>
+					  
+					  <%= form.hidden_field :customer_id, value: current_customer.id, id: "job-customer-id" %>
+					  	<% end %>
+						<% end %>
+
+					<button type="button" id="nextBtn" class="btn btn-primary" data-signup-id="3" data-action="click->signup#next click->signup#job">Select Service</button>
 				</div>
 			</div>
 		</div>
@@ -154,13 +185,14 @@
 	</div>
 
 	<!-- Circles which indicates the steps of the form: -->
-	<div style="text-align:center;margin-top:40px;">
+<!-- 	<div style="text-align:center;margin-top:40px;">
 	  <span class="step"></span>
 	  <span class="step"></span>
 	  <span class="step"></span>
 	  <span class="step"></span>
 	</div>
-</div>
+ -->
+</div><!-- container -->
 
 
 

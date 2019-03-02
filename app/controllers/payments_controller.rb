@@ -28,7 +28,7 @@ def customer
 
     if current_customer.update(options)
       current_customer.save
-			redirect_to edit_customer_registration_path, notice: "Your payment info has been saved."
+			redirect_to profile_path, notice: "Your payment info has been saved."
 		else
 			redirect_to root_path, notice: "Hmmm, something went wrong."
 		end

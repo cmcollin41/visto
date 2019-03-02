@@ -1,6 +1,8 @@
 class AddressesController < ApplicationController
   layout 'squeeze'
   before_action :set_address, only: [:show, :edit, :update, :destroy]
+  before_action :next_weekdays, only: [:show]
+  before_action :available_times, only: [:show]
 
   # GET /addresses
   # GET /addresses.json
@@ -13,6 +15,7 @@ class AddressesController < ApplicationController
   def show
 
     @customer = Customer.new
+    @job = Job.new
 
     @full_address = @address.long_address
     @lat = @address.latitude
@@ -107,6 +110,21 @@ class AddressesController < ApplicationController
     def set_address
       @address = Address.friendly.find(params[:id])
     end
+
+    def next_weekdays
+      week = Date.today..6.days.from_now
+      @days = week.select { |day| day.strftime("%a") != "Sun" }
+    end
+
+    def available_times
+      times = []
+      for hour in 8..18 do
+        d = DateTime.new(2019, 1, 1, hour, 0, 0)
+        times << d  
+      end
+      @times = times
+    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params

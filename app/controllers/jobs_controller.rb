@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   layout "squeeze", only: [:new]
+  skip_before_action :verify_authenticity_token
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :next_weekdays, only: [:new, :edit]
   before_action :available_times, only: [:new, :edit]
