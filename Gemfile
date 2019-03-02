@@ -41,6 +41,9 @@ gem "aws-sdk-s3", require: false
 
 gem 'devise'
 
+#payments
+gem 'stripe'
+
 # Design
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'

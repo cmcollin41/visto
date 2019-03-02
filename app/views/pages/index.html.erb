@@ -90,4 +90,39 @@
 	</div>
 </div>
 
+<script>
+  function initMap() {
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    var latInput = document.getElementById('latInput');
+    var lngInput = document.getElementById('lngInput');
+    autocomplete.setFields(
+      ['address_components', 'geometry', 'icon', 'name']
+    );
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      latInput.value = place.geometry.location.lat();
+      lngInput.value = place.geometry.location.lng();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+    });
+  }
+
+  var form = document.getElementById('get-it');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    if (document.getElementById('latInput').value === "" || document.getElementById('lngInput').value === "") {
+      document.getElementById('form-error').classList.remove('d-none');
+      document.getElementById('address_submit').disabled = false;
+      return;
+    }
+    form.submit();
+  })
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI&libraries=places&callback=initMap"
+async defer></script>
 

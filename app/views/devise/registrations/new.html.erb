@@ -1,15 +1,4 @@
 <div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <%= image_tag("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=#{cookies[:latitude]},#{cookies[:longitude]}&fov=90&pitch=0&key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI", width: "100%", class: "streetview") %>
-      <h1 class="h5 mt-5" style="letter-spacing: 0.1rem;">Home Inspection</h1>
-      <p class="font-weight-light">
-        <%= image_tag("icons8-marker-black.svg", width: "16px", class: "mb-1") %> <%= cookies[:long_address] %>
-      </p>
-      <p><%= image_tag("icons8-us-dollar.svg", width: "16px", class: "mb-1") %> <span>$<%= cookies[:price] %><span class="font-weight-light"> - General Home Inspection</span></span></p>
-
-    </div>
-  </div>
   <div class="row justify-content-center mt-4">
     <div class="col-md-6">
       <h2 class="h6" style="letter-spacing: 0.1rem; text-transform: uppercase;">Create Account</h2>
@@ -23,28 +12,28 @@
               <div class="form-row">
                 <div class="col">
                   <%= f.label :first_name %><br />
-                  <%= f.text_field :first_name, autofocus: true, placeholder: "First Name", class: "form-control" %>
+                  <%= f.text_field :first_name, autofocus: true, placeholder: "First Name", class: "form-control", id: "first" %>
                 </div>
                 <div class="col">
                   <%= f.label :last_name %><br />
-                  <%= f.text_field :last_name, autofocus: true, placeholder: "Last Name", class: "form-control" %>
+                  <%= f.text_field :last_name, autofocus: true, placeholder: "Last Name", class: "form-control", id: "last" %>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
               <%= f.label :email %><br />
-              <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control" %>
+              <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control", id: "email" %>
             </div>
 
             <div class="form-group">
               <%= f.label :mobile %><br />
-              <%= f.phone_field :mobile, autofocus: true, placeholder: "Mobile", class: "form-control" %>
+              <%= f.phone_field :mobile, autofocus: true, placeholder: "Mobile", class: "form-control", id: "mobile" %>
             </div>
 
             <div class="form-group">
               <%= f.label :password %>
-              <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+              <%= f.password_field :password, placeholder: "Password", class: "form-control", id: "password" %>
             </div>
 
 

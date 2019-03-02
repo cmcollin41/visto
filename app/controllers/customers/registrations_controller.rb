@@ -1,11 +1,12 @@
 class Customers::RegistrationsController < Devise::RegistrationsController
+  skip_before_action :verify_authenticity_token
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
 
   # POST /resource
   def create
@@ -13,22 +14,30 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       Property.create(customer_id: resource.id, address_id: cookies[:address])
     end
+
+    respond_to do |format|
+      if resource.save
+        format.json
+      else
+        resource.errors.full_messages.each { |msg| puts msg }
+      end
+    end
   end
 
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  #GET /resource/edit
+  def edit
+    super
+  end
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
+  #PUT /resource
+  def update
+    super
+  end
 
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  #DELETE /resource
+  def destroy
+    super
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign

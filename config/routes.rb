@@ -22,6 +22,16 @@ Rails.application.routes.draw do
     sessions: 'customers/sessions',
     registrations: "customers/registrations"
   }
+
+  devise_scope :customer do
+    post "/signup", to: "customers/registrations#create"
+  end
+
+
+  post "/payments-customer", to: "payments#customer"
+  post "/payments-charge", to: "payments#charge"
+
+
   
   resources :jobs
   resources :addresses

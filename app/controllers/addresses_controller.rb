@@ -1,4 +1,5 @@
 class AddressesController < ApplicationController
+  layout 'squeeze'
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 
   # GET /addresses
@@ -10,6 +11,8 @@ class AddressesController < ApplicationController
   # GET /addresses/1
   # GET /addresses/1.json
   def show
+
+    @customer = Customer.new
 
     @full_address = @address.long_address
     @lat = @address.latitude
