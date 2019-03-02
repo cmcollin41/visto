@@ -31,7 +31,7 @@ export default class extends Controller {
       })
     }).then(function(response) {
       if(response.ok) {
-       alert("it worked!") 
+       
       }
     }).catch(function(error) {
       alert(error)
