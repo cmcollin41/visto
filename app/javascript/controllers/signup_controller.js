@@ -39,8 +39,8 @@ export default class extends Controller {
   job(e) {
   	e.preventDefault()
 
-  	var customer = getCookie("customer")
-
+  	var customercookie = this.getCookie("customer")
+  	
     fetch('/jobs',{
       method: "POST",
       credentials: 'include',
@@ -49,7 +49,7 @@ export default class extends Controller {
       	job: {
 	      	price: document.getElementById('job-price').value,
 	      	address_id:document.getElementById('job-address-id').value,
-	      	customer_id: customer,
+	      	customer_id: customercookie,
 	      	date: document.getElementById('job-date').value,
 	      	time: document.getElementById('job-time').value
       	}
