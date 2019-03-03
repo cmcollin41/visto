@@ -12,6 +12,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   def create
     super
     if resource.persisted?
+      cookies[:customer] = resource.id
       Property.create(customer_id: resource.id, address_id: cookies[:address])
     end
 

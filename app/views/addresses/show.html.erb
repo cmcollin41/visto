@@ -140,11 +140,8 @@
 
 					  <%= form.hidden_field :price, value: cookies[:price], id: "job-price" %>
 					  <%= form.hidden_field :address_id, value: cookies[:address], id: "job-address-id" %>
-					  <% if customer_signed_in? %>
-					  
-					  <%= form.hidden_field :customer_id, value: current_customer.id, id: "job-customer-id" %>
-					  	<% end %>
-						<% end %>
+					  <%= form.hidden_field :customer_id, value: cookies[:customer], id: "job-customer-id" %>
+					<% end %>
 
 					<button type="button" id="nextBtn" class="btn btn-primary" data-signup-id="3" data-action="click->signup#next click->signup#job">Select Service</button>
 				</div>
