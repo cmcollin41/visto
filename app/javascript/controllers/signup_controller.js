@@ -38,6 +38,9 @@ export default class extends Controller {
 
   job(e) {
   	e.preventDefault()
+
+  	var customer = getCookie("customer")
+
     fetch('/jobs',{
       method: "POST",
       credentials: 'include',
@@ -46,7 +49,7 @@ export default class extends Controller {
       	job: {
 	      	price: document.getElementById('job-price').value,
 	      	address_id:document.getElementById('job-address-id').value,
-	      	customer_id: document.getElementById('job-customer-id').value,
+	      	customer_id: customer,
 	      	date: document.getElementById('job-date').value,
 	      	time: document.getElementById('job-time').value
       	}
@@ -114,6 +117,23 @@ export default class extends Controller {
 	//   //... and adds the "active" class to the current step:
 	//   x[n].className += " active";
 	// }
+
+
+	getCookie(cname) {
+	  var name = cname + "=";
+	  var ca = document.cookie.split(';');
+	  for(var i = 0; i < ca.length; i++) {
+	    var c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	}
+
 
 
   success() {
