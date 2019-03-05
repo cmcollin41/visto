@@ -3,17 +3,37 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [ "form","save","tab"]
 
-  connect() {
-  	var currentTab = 0;
-		this.showTab(currentTab);
+  initialize() {
+    this.showCurrentTab()
   }
 
-  load() {
-
-  }
-
-  submit(e) {
+  next(e) {
   	e.preventDefault()
+	  this.index++
+  }
+
+  previous(e) {
+  	e.preventDefault()
+    this.index--
+  }
+
+  showCurrentTab() {
+    this.tabTargets.forEach((el, i) => {
+	     el.classList.toggle("tab--current", this.index == i)
+    })
+  }
+
+  get index() {
+    return parseInt(this.data.get("index"))
+  }
+
+  set index(value) {
+    this.data.set("index", value)
+    this.showCurrentTab()
+  }
+
+
+  submitCustomer(e) {
     fetch('/signup',{
       method: "POST",
       credentials: 'include',
@@ -34,9 +54,11 @@ export default class extends Controller {
     }).catch(function(error) {
       alert(error)
     });
+
   }
 
-  job(e) {
+
+  submitJob(e) {
   	e.preventDefault()
 
   	var customercookie = this.getCookie("customer")
@@ -62,61 +84,16 @@ export default class extends Controller {
     });
   }
 
-  showTab(n) {
-	  // This function will display the specified tab of the form ...
 
-	  var x = document.getElementsByClassName("tab");
-	  x[n].classList.toggle("d-none")
-	  // ... and fix the Previous/Next buttons:
-	  if (n == 0) {
-	    document.getElementById("prevBtn").style.display = "none";
-	  } else {
-	    document.getElementById("prevBtn").style.display = "inline";
+	fixStepIndicator(n) {
+	  // This function removes the "active" class of all steps...
+	  var i, x = document.getElementsByClassName("step");
+	  for (i = 0; i < x.length; i++) {
+	    x[i].className = x[i].className.replace(" active", "");
 	  }
-	  // if (n == (x.length - 1)) {
-	  //   document.getElementById("nextBtn").innerHTML = "Submit";
-	  // } else {
-	  //   document.getElementById("nextBtn").innerHTML = "Next";
-	  // }
-	  // ... and run a function that displays the correct step indicator:
-	  // this.fixStepIndicator(n)
+	  //... and adds the "active" class to the current step:
+	  x[n].className += " active";
 	}
-
-
-	next(e) {
-    e.preventDefault()
-    console.log(e.target)
-    this.currentTab = e.target.getAttribute('data-signup-id')
-    
-    this.tabTargets.forEach((el, i) => {
-    	i = i + 1
-      if (this.currentTab == i) {
-      	el.classList.toggle("d-none")
-      	this.tabTargets[i].classList.toggle("d-none")
-      } 
-    })
-  }
-
-  get currentTab() {
-     return this.data.get("current-tab")
-  }
-
-  set currentTab(id) {
-    if (this.currentTab !== id) {
-      this.data.set("current-tab", id)
-    }
-  }
-
-
-	// fixStepIndicator(n) {
-	//   // This function removes the "active" class of all steps...
-	//   var i, x = document.getElementsByClassName("step");
-	//   for (i = 0; i < x.length; i++) {
-	//     x[i].className = x[i].className.replace(" active", "");
-	//   }
-	//   //... and adds the "active" class to the current step:
-	//   x[n].className += " active";
-	// }
 
 
 	getCookie(cname) {

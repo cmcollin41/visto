@@ -168,6 +168,14 @@
   border-radius: 2px;
 }
 
+input.invalid {
+  background-color: #ffdddd;
+}
+
+.lighbulb{
+  line-height: 2;
+}
+
 .streetview {
   object-fit: cover;
   width: 100%;
@@ -273,6 +281,15 @@ input.invalid {
   background-color: #4CAF50;
 }
 
+
+.tab {
+  display: none;
+}
+
+
+.tab.tab--current {
+  display: block;
+}
 
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows

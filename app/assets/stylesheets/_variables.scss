@@ -789,7 +789,7 @@ $pagination-disabled-border-color:  $gray-300 !default;
 // Jumbotron
 
 $jumbotron-padding:                 2rem !default;
-$jumbotron-bg:                      $gray-200 !default;
+$jumbotron-bg:                      $gray-100 !default;
 
 
 // Cards
@@ -798,7 +798,7 @@ $card-spacer-y:                     .75rem !default;
 $card-spacer-x:                     1.25rem !default;
 $card-border-width:                 $border-width !default;
 $card-border-radius:                $border-radius !default;
-$card-border-color:                 rgba($black, .125) !default;
+$card-border-color:                 theme-color("light") !default;
 $card-inner-border-radius:          calc(#{$card-border-radius} - #{$card-border-width}) !default;
 $card-cap-bg:                       rgba($black, .03) !default;
 $card-cap-color:                    inherit !default;
