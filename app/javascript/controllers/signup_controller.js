@@ -7,9 +7,8 @@ export default class extends Controller {
     this.showCurrentTab()
   }
 
-  next(e) {
-  	e.preventDefault()
-	  this.index++
+  next() {
+		this.index++
   }
 
   previous(e) {
@@ -39,27 +38,30 @@ export default class extends Controller {
 
 
   submitCustomer(e) {
-    fetch('/signup',{
-      method: "POST",
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-      	customer: {
-	      	email: document.getElementById('email').value,
-	      	password:document.getElementById('password').value,
-	      	first_name: document.getElementById('first').value,
-	      	last_name: document.getElementById('last').value,
-	      	mobile: document.getElementById('mobile').value
-      	}
-      })
-    }).then(function(response) {
-      if(response.ok) {
-       
-      }
-    }).catch(function(error) {
-      alert(error)
-    });
-
+  	e.preventDefault()
+  	if (this.validate()){
+  		var that = this;
+	    fetch('/signup',{
+	      method: "POST",
+	      credentials: 'include',
+	      headers: {'Content-Type': 'application/json'},
+	      body: JSON.stringify({
+	      	customer: {
+		      	email: document.getElementById('email').value,
+		      	password:document.getElementById('password').value,
+		      	first_name: document.getElementById('first').value,
+		      	last_name: document.getElementById('last').value,
+		      	mobile: document.getElementById('mobile').value
+	      	}
+	      })
+	    }).then(function(response) {
+	      if(response.ok) {
+	       	that.next()
+	      }
+	    }).catch(function(error) {
+	      alert(error)
+	    });
+  	}
   }
 
 
@@ -67,26 +69,69 @@ export default class extends Controller {
   	e.preventDefault()
 
   	var customercookie = this.getCookie("customer")
-  	
-    fetch('/jobs',{
-      method: "POST",
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-      	job: {
-	      	price: document.getElementById('job-price').value,
-	      	address_id:document.getElementById('job-address-id').value,
-	      	customer_id: customercookie,
-	      	date: document.getElementById('job-date').value,
-	      	time: document.getElementById('job-time').value
-      	}
-      })
-    }).then(function(response) {
-      if(response.ok) {
-      }
-    }).catch(function(error) {
-      alert(error)
-    });
+  	var totalprice = this.getCookie("totalprice")
+  	var address = this.getCookie("address")
+
+  	var that = this;
+
+  	if (this.validate()){
+	    fetch('/jobs',{
+	      method: "POST",
+	      credentials: 'include',
+	      headers: {'Content-Type': 'application/json'},
+	      body: JSON.stringify({
+	      	job: {
+		      	price: totalprice,
+		      	address_id: address,
+		      	customer_id: customercookie,
+		      	date: document.getElementById('job-date').value,
+		      	time: document.getElementById('job-time').value
+	      	}
+	      })
+	    }).then(function(response) {
+	      if(response.ok) {
+	      	that.next()
+	      }
+	    }).catch(function(error) {
+	      alert(error)
+	    });
+	  };
+  }
+  
+
+  validate() {
+	  var valid = true
+	  this.formTargets.forEach((el, i) => {
+	  	if (this.index == 1 ) {
+	    	var y = el.getElementsByTagName("input")
+	    	var error = el.getElementsByClassName("error")[0]
+	    	for (i = 0; i < y.length; i++) {
+			    // If a field is empty...
+			    if (y[i].value == "") {
+			      // add an "invalid" class to the field:
+			      error.classList.add("bg-danger");
+			      error.classList.remove("d-none");
+			      // and set the current valid status to false:
+			      valid = false;
+			    }
+			  }
+	  	} else if (this.index == 2) {
+	  		var y = el.getElementsByTagName("input")
+	    	var error = el.getElementsByClassName("error")[1]
+	    	for (i = 0; i < y.length; i++) {
+			    // If a field is empty...
+			    if (y[i].value == "") {
+			      // add an "invalid" class to the field:
+			      error.classList.add("bg-danger");
+			      error.classList.remove("d-none");
+			      // and set the current valid status to false:
+			      valid = false;
+			    }
+			  }
+	  	}
+	  })
+
+	  return valid
   }
 
 
@@ -96,7 +141,6 @@ export default class extends Controller {
 	  for (i = 0; i < x.length; i++) {
 	    x[i].classList.remove("active");
 	  }
-	  console.log(x[n])
 	  //... and adds the "active" class to the current step:
 	  if (n != 0){
 		  x[n-1].classList.add("finish");

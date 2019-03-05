@@ -1,8 +1,8 @@
 <div class="container mt-5">
   <h1>Jobs</h1>
-  <% @jobs.each do |job| %>
     <div class="row justify-content-center">
-      <div class="col-md-6">
+  <% @jobs.each do |job| %>
+      <div class="col-md-4 my-3">
           <div class="card">
             <div class="card-body">
               <h6><strong><%= job.customer.name %></strong></h6>
@@ -14,8 +14,8 @@
             </div>
           </div>
       </div>
-    </div>
   <% end %>
+    </div>
   <%= link_to 'New Job', new_job_path %>
 </div>
 

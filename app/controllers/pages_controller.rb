@@ -21,8 +21,9 @@ class PagesController < ApplicationController
   def profile
     @customer = current_customer
     property = @customer.properties.first
-    @job = @customer.jobs.first
+    @jobs = @customer.jobs
     @address = Address.find(property.id)
+    @reports = @customer.reports
   end
 
 end

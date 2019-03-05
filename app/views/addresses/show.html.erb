@@ -85,8 +85,12 @@
 								<p class="lightbulb"><%= image_tag("icons8-idea", width: "28px", class: "mb-1") %> Visto uses a propietary interactive report that allows you to scroll thru your images, seach the report, and easily understand what is going on with the inspected property.</p>
 							</div>
 						</div>
-							<%= form_for(:customer, url: registration_path(:customer), data: {target: "signup.form signup.save", action: "ajax:success->signup#success ajax:error->signup#error"}) do |f| %>
-
+							<%= form_for(:customer, url: registration_path(:customer), data: {target: "signup.form", signupForm: "1"}) do |f| %>
+								<div class="card d-none text-center error my-5">
+									<div class="card-body">
+										<span>All fields are required</span>
+									</div>
+								</div>
 			          <div class="form-group">
 			            <div class="form-row">
 			              <div class="col">
@@ -120,7 +124,7 @@
 			          		<%= link_to "Back", "#", class: "btn btn-light", data: {action: "click->signup#previous"} %>
 			          	</div>
 			          	<div class="col text-md-right">
-			            	<%= f.submit "Create Account", class: "btn btn-primary", data: {action: "click->signup#submitCustomer click->signup#next"} %>
+			            	<%= f.submit "Create Account", class: "btn btn-primary", data: {action: "click->signup#submitCustomer"} %>
 			          	</div>
 			          </div>
 			        <% end %>
@@ -130,6 +134,43 @@
 			</div>
 		</div><!-- tab row -->
 	<% end %>
+	<div class="tab my-5" data-target="signup.tab">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card shadow">
+					<div class="card-body">
+						<h4>Select a date and time</h4>
+						<div class="card bg-light my-5">
+							<div class="card-body">
+								<p class="lighbulb"><%= image_tag("icons8-idea", width: "28px", class: "mb-1") %> Visto will send you a text message to verify the date and time you've selected.</p>
+							</div>
+						</div>
+						<%= form_with(model: @job, local: true, data: {target: "signup.form", signupForm: "3"}) do |form| %>
+						  <div class="d-flex flex-row justify-content-between align-items-center">
+						      <div class="col-12 col-md-6">
+						        <%= form.select :date, @days.map { |d| [d.strftime("%a, %b %d"), d]}, {prompt: "Date"}, {required: true, class: "custom-select", id: "job-date"}  %>
+						      </div>  
+						      <div class="col-12 col-md-6">
+						        <%= form.select :time, @times.map { |t| [t.strftime("%I:%M %p")]}, {prompt: "Time"}, {required: true, class: "custom-select", id: "job-time"} %>
+						      </div>
+						  </div>
+
+		          <div class="row justify-content-between mt-5">
+		          	<div class="col">
+		          		<%= link_to "Back", "#", class: "btn btn-light", data: {action: "click->signup#previous"} %>
+		          	</div>
+		          	<div class="col text-md-right">
+		            	<%= form.submit "Book Inspection", class: "btn btn-primary", data: {action: "click->signup#submitJob"} %>
+		          	</div>
+		          </div>
+						<% end %>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="tab my-5" data-target="signup.tab">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
@@ -198,45 +239,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="tab my-5" data-target="signup.tab">
-		<div class="row justify-content-center">
-			<div class="col-md-6">
-				<div class="card shadow">
-					<div class="card-body">
-						<h4>Select a date and time</h4>
-						<div class="card bg-light my-5">
-							<div class="card-body">
-								<p class="lighbulb"><%= image_tag("icons8-idea", width: "28px", class: "mb-1") %> Visto will send you a text message to verify the date and time you've selected.</p>
-							</div>
-						</div>
-						<%= form_with(model: @job, local: true) do |form| %>
-						  <div class="d-flex flex-row justify-content-between align-items-center">
-						      <div class="col-12 col-md-6">
-						        <%= form.select :date, @days.map { |d| [d.strftime("%a, %b %d"), d]}, {prompt: "Date"}, {required: true, class: "custom-select", id: "job-date"}  %>
-						      </div>  
-						      <div class="col-12 col-md-6">
-						        <%= form.select :time, @times.map { |t| [t.strftime("%I:%M %p")]}, {prompt: "Time"}, {required: true, class: "custom-select", id: "job-time"} %>
-						      </div>
-						  </div>
 
-						  <%= form.hidden_field :price, value: cookies[:totalprice], id: "job-price" %>
-						  <%= form.hidden_field :address_id, value: cookies[:address], id: "job-address-id" %>
-		          <div class="row justify-content-between mt-5">
-		          	<div class="col">
-		          		<%= link_to "Back", "#", class: "btn btn-light", data: {action: "click->signup#previous"} %>
-		          	</div>
-		          	<div class="col text-md-right">
-		            	<%= form.submit "Book Inspection", class: "btn btn-primary", data: {action: "click->signup#submitJob click->signup#next"} %>
-		          	</div>
-		          </div>
-						<% end %>
-
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div><!-- container -->
 
 
