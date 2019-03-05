@@ -9,8 +9,12 @@
               <p><%= job.address.long_address %></p>
               <p>$<%= job.price %></p>
               <p><%= job.time %> <%= job.date %></p>
-              <%= link_to "Create Report", new_report_path(address: job.address.id, customer: job.customer.id), class: "btn btn-primary" %>
-              <%= link_to 'Show', job %>
+              <% @report = Report.find_by(address_id: job.address.id) %>
+              <% if @report %>
+                <%= link_to "View Report", report_path(@report), class: "btn btn-primary float-right" %>
+              <% else %>
+                <%= link_to "Create Report", new_report_path(address: job.address.id, customer: job.customer.id), class: "btn btn-warning float-right" %>
+              <% end %>
             </div>
           </div>
       </div>

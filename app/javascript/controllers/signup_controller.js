@@ -39,8 +39,9 @@ export default class extends Controller {
 
   submitCustomer(e) {
   	e.preventDefault()
+		var that = this;
+		
   	if (this.validate()){
-  		var that = this;
 	    fetch('/signup',{
 	      method: "POST",
 	      credentials: 'include',
