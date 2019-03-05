@@ -1,23 +1,22 @@
 <div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h1>Jobs</h1>
-
-      <% @jobs.each do |job| %>
-        <div class="card">
-          <div class="card-body">
-            <p><%= job.customer.name %></p>
-            <p> <%= job.address.long_address %></p>
-            <p><%= job.price %></p>
-            <p><%= job.time %> <%= job.date %></p>
-            <%= link_to "Create Report", new_report_path(address: job.address.id, customer: job.customer.id), class: "btn btn-primary" %>
-            <%= link_to 'Show', job %>
+  <h1>Jobs</h1>
+  <% @jobs.each do |job| %>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h6><strong><%= job.customer.name %></strong></h6>
+              <p><%= job.address.long_address %></p>
+              <p>$<%= job.price %></p>
+              <p><%= job.time %> <%= job.date %></p>
+              <%= link_to "Create Report", new_report_path(address: job.address.id, customer: job.customer.id), class: "btn btn-primary" %>
+              <%= link_to 'Show', job %>
+            </div>
           </div>
-        </div>
-      <% end %>
-      <%= link_to 'New Job', new_job_path %>
+      </div>
     </div>
-  </div>
+  <% end %>
+  <%= link_to 'New Job', new_job_path %>
 </div>
 
 

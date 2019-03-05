@@ -274,11 +274,14 @@ input.invalid {
 /* Mark the active step: */
 .step.active {
   opacity: 1;
+  background-color: #fff;
+  border: 2px solid #3ddb93;
 }
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color: #4CAF50;
+  opacity: 1;
+  background-color: #3ddb93;
 }
 
 

@@ -19,7 +19,12 @@ export default class extends Controller {
 
   showCurrentTab() {
     this.tabTargets.forEach((el, i) => {
-	     el.classList.toggle("tab--current", this.index == i)
+    	if (this.index == i ){
+	     el.classList.add("tab--current")
+	     this.fixStepIndicator(i)
+    	} else{
+    		el.classList.remove("tab--current")
+    	}
     })
   }
 
@@ -89,10 +94,14 @@ export default class extends Controller {
 	  // This function removes the "active" class of all steps...
 	  var i, x = document.getElementsByClassName("step");
 	  for (i = 0; i < x.length; i++) {
-	    x[i].className = x[i].className.replace(" active", "");
+	    x[i].classList.remove("active");
 	  }
+	  console.log(x[n])
 	  //... and adds the "active" class to the current step:
-	  x[n].className += " active";
+	  if (n != 0){
+		  x[n-1].classList.add("finish");
+	  }
+	  x[n].classList.add("active");
 	}
 
 
