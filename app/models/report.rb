@@ -5,4 +5,6 @@ class Report < ApplicationRecord
 
   has_many :responses, dependent: :destroy
   accepts_nested_attributes_for :responses, allow_destroy: true
+
+  has_one_attached :cover, dependent: :destroy
 end

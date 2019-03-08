@@ -1,22 +1,40 @@
 <div class="container mt-5">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
-			<div>
-			  <%= image_tag("icons8-marker-black.svg", width: "16px", class: "mb-1") %> <%= @report.address.long_address %>
+		<div class="col-md-10">
+			<div class="shadow">
+				<%= image_tag("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=#{@report.address.latitude},#{@report.address.longitude}&fov=90&pitch=0&key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI", width: "100%", class: "streetview") %>
 			</div>
+		</div>
+		<div class="col-md-10 mt-4 pb-4" style="border-bottom: 1px solid #111;">
+			<div class="d-flex justify-content-between">
+				<div>
+			  	<h1 class="h2"><%= @report.address.long_address %></h1>
+			  	<h6><%= @report.admin.name %> inspected this home.</h6>
+				</div>
+			  <div class="card bg-primary text-center" style="width: 200px;">
+			  	<div class="card-body">
+			  		<span class="display-4 bold">87</span><br>
+			  		HomeScore
+			  	</div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-10 mt-5">
 
+
+			<h4>Roof</h4>
 			<% @questions.each do |q| %>
-				<div class="mt-5">
+				<div class="mt-3">
 						<% r = @responses.find_by(question_id: q) %>
+						<% if r.choice_id.present? %>
+							<p class="mt-3"><%= q.question %> <%= Choice.find(r.choice_id).choice %></p>
+						<% end %>
+						<p><%= r.response %></p>
 						<% if r.images.attached? %>
 							<% r.images.each do |img| %>
 								<%= image_tag(img, width: "20%") %>
 							<% end %>
 						<% end %>
-						<% if r.choice_id.present? %>
-							<p class="mt-3"><%= q.question %> <%= Choice.find(r.choice_id).choice %></p>
-						<% end %>
-						<p><%= r.response %></p>
 				</div>
 			<% end %>
 
@@ -26,22 +44,6 @@
 
 			<%= link_to 'Edit', edit_report_path(@report) %> |
 			<%= link_to 'Back', reports_path %>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card my-3">
-				<div class="card-body">
-					<small>Customer</small><br>
-					<%= @report.customer.name %>
-				</div>
-			</div>
-
-			<div class="card my-3">
-				<div class="card-body">
-					<small>Inspector</small><br>
-			  	<%= @report.admin.name %>
-				</div>
-			</div>
 		</div>
 
 	</div>

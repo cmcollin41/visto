@@ -12,7 +12,7 @@
  *
  */
 
-@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:400,700|Roboto:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:400,700|Roboto:300,400,700,900i');
 
 @import 'bootstrap/functions';
 @import 'variables';
@@ -51,9 +51,14 @@
 @import 'bootstrap/print';
 
 
-h1,.h1, h2, .h2 {
+h1,.h1, h2, .h2, h3, .h3 {
   font-family: 'Frank Ruhl Libre', serif;
   font-weight: 700;
+}
+
+.bold {
+  font-weight: 900;
+  font-style: italic;
 }
 
 
