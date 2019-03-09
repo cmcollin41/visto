@@ -36,6 +36,12 @@ class DeviseCreateCustomers < ActiveRecord::Migration[5.2]
       t.string :last_name
       t.string :mobile
 
+      t.string :stripe_id
+      t.string :card_last4
+      t.string :card_type
+      t.integer :card_exp_month
+      t.integer :card_exp_year
+
 
       t.timestamps null: false
     end

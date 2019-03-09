@@ -12,14 +12,20 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :section %>
-    <%= form.text_field :section, class: "form-control" %>
+    <%= form.check_box :active, id: "activeswitch", class: "switch-input" %>
+    <label for="activeswitch" class="switch-label">Question <span class="toggle--on">on</span><span class="toggle--off">off</span></label>
   </div>
 
   <div class="form-group">
-    <%= form.label :active %>
-    <%= form.check_box :active %>
+    <%= form.label :system %>
+    <%= form.select :system, Question.systems.keys.map { |s| [s.humanize, s] },{}, {class: "form-control custom-select"} %>
   </div>
+
+  <div class="form-group">
+    <%= form.label :component %>
+    <%= form.text_field :component, class: "form-control" %>
+  </div>
+
 
   <div class="form-group">
     <%= form.label :question %>

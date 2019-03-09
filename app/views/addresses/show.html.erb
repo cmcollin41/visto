@@ -146,13 +146,13 @@
 							</div>
 						</div>
 						<%= form_with(model: @job, local: true, data: {target: "signup.form", signupForm: "3"}) do |form| %>
-						  <div class="d-flex flex-row justify-content-between align-items-center">
-						      <div class="col-12 col-md-6">
-						        <%= form.select :date, @days.map { |d| [d.strftime("%a, %b %d"), d]}, {prompt: "Date"}, {required: true, class: "custom-select", id: "job-date"}  %>
-						      </div>  
-						      <div class="col-12 col-md-6">
-						        <%= form.select :time, @times.map { |t| [t.strftime("%I:%M %p")]}, {prompt: "Time"}, {required: true, class: "custom-select", id: "job-time"} %>
-						      </div>
+						  <div class="d-flex justify-content-between align-items-center">
+					      <div class="col-md-6">
+					        <%= form.select :date, @days.map { |d| [d.strftime("%a, %b %d"), d]}, {prompt: "Date"}, {required: true, class: "custom-select", id: "job-date"}  %>
+					      </div>  
+					      <div class="col-md-6">
+					        <%= form.select :time, @times.map { |t| [t.strftime("%I:%M %p")]}, {prompt: "Time"}, {required: true, class: "custom-select", id: "job-time"} %>
+					      </div>
 						  </div>
 
 		          <div class="row justify-content-between mt-5">

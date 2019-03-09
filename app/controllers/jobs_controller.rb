@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   layout "squeeze", only: [:new]
+  layout "admin", except: [:new, :create]
   skip_before_action :verify_authenticity_token
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :next_weekdays, only: [:new, :edit]
@@ -20,7 +21,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-
     @job = Job.new
   end
 

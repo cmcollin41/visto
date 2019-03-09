@@ -5,8 +5,9 @@
   <% @questions.each do |question| %>
     <div class="card my-4">
       <div class="card-body">
-        <%#= question.section %>
-        <%#= question.active %>
+        <span class="badge badge-primary"><%= question.active %></span>
+        <h4><%= question.system %></h4>
+        <h5><%= question.component %></h5>
         <h2><%= question.question %></h2>
         <% question.choices.each do |choice| %>
           <p><%= choice.choice %></p>

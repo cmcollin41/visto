@@ -5,8 +5,11 @@ class CreateAddresses < ActiveRecord::Migration[5.2]
       t.string :long_address
       t.float :latitude
       t.float :longitude
+      t.string :slug
 
       t.timestamps
     end
+
+    add_index :addresses, :slug, unique: true
   end
 end
