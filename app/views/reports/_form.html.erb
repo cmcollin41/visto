@@ -11,14 +11,18 @@
     <div style="border-bottom: 2px solid #111; width: 100%;"></div>
     <% questions.each do |q| %>
       <%= form.fields_for :responses, q.responses.first do |r| %>
-        <h3 class="mt-5"><%= q.question %></h3 class="mt-5">
+        <h3 class="mt-5"><%= q.component %></h3 class="mt-5">
 
-        <% q.choices.order(id: :asc).each do |choice| %>
+<!--         <%# q.choices.order(id: :asc).each do |choice| %>
           <div class="col">
-            <%= r.label choice.choice %>
-            <%= r.radio_button :choice_id, choice.id, data: {action: "click->report#save"} %>
+            <%#= r.label choice.choice %>
+            <%#= r.radio_button :choice_id, choice.id, data: {action: "click->report#save"} %>
           </div>
-        <% end %>
+        <%# end %> -->
+
+        <div class="form-group mt-4">
+          <%= r.select :observation, Response.observations.keys.map { |o| [o.humanize, o] }, {prompt: true, selected: q.responses.first.observation}, {class: "form-control", placeholder: "Response", rows: "5", data: {action: "change->report#save"}} %>
+        </div>
 
         <div class="form-group mt-4">
           <%= r.text_area :response, class: "form-control", placeholder: "Response", rows: "5", data: {action: "keyup->report#save"} %>
@@ -26,13 +30,35 @@
 
 
         <div class="form-group mt-4">
-            <% q.responses.first.images.each do |img| %>
-              <%= link_to image_tag(img, width: "100px", data: {action: "click->report#choose", target: "report.image", id: "#{img.blob.id}"}) %>
-            <% end %>
+          <% q.responses.first.images.each do |img| %>
+            <%= link_to image_tag(img, width: "100px", data: {action: "click->report#choose", target: "report.image", id: "#{img.blob.id}"}) %>
+          <% end %>
         </div>
 
         <div class="form-group mt-4">
-            <%= r.file_field :images, multiple: true, data: {action: "change->report#save", target: "report.item"} %>
+          <%= r.file_field :images, multiple: true, data: {action: "change->report#save", target: "report.item"} %>
+        </div>
+
+        <h6>Items</h6>
+
+        <div class="card">
+          <div class="card-body">
+            <div data-controller="nested-form">
+              <template data-target="nested-form.template">
+                <%= r.fields_for :items, Item.new, child_index: 'NEW_RECORD' do |item| %>
+                  <%= render "item_fields", form: item %>
+                <% end %>
+              </template>
+
+              <%= r.fields_for :items do |item| %>
+                <%= render "item_fields", form: item %>
+              <% end %>
+
+              <div class="mb-3" data-target="nested-form.links">
+                <%= link_to "Add Item", "#", class: "btn btn-primary btn-sm", data: {action: "click->nested-form#add_association"} %>
+              </div>
+            </div>
+          </div>
         </div>
 
       <% end %>

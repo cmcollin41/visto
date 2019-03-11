@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_035709) do
+ActiveRecord::Schema.define(version: 2019_03_11_174944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,18 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "items", force: :cascade do |t|
+    t.bigint "response_id"
+    t.integer "kind"
+    t.string "number"
+    t.string "size"
+    t.integer "fuel_type"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["response_id"], name: "index_items_on_response_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.float "price", default: 299.0
     t.time "time"
@@ -145,6 +157,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
   end
 
   create_table "responses", force: :cascade do |t|
+    t.integer "observation"
     t.text "response"
     t.bigint "report_id"
     t.bigint "question_id"
@@ -157,6 +170,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "questions"
+  add_foreign_key "items", "responses"
   add_foreign_key "jobs", "addresses"
   add_foreign_key "jobs", "customers"
   add_foreign_key "properties", "addresses"

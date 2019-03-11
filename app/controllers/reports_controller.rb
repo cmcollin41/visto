@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :form]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :form, :info]
   before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update]
 
   # GET /reports
@@ -15,6 +15,15 @@ class ReportsController < ApplicationController
   def show
     @responses = @report.responses
     @questions = Question.where(active: true).includes(:choices).includes(:responses)
+  end
+
+  def info
+    #include params to filter the data
+    @questions = Question.where("system = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
+    @responses = @report.responses
+    @score = Response.sum(:observation)
+    @t_score = (Response.count * 5)
+    render partial: 'info', locals: {report: @report, questions: @questions, responses: @responses}, layout: false
   end
 
   # GET /reports/new
@@ -117,6 +126,8 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:address_id, :customer_id, :admin_id, :cover, responses_attributes: [:id, :report_id, :question_id, :choice_id, :response, :_destroy, images: []])
+      params.require(:report).permit(:address_id, :customer_id, :admin_id, :cover, 
+        responses_attributes: [:id, :report_id, :question_id, :choice_id, :response, :observation, :_destroy, images: [],
+        items_attributes: [:id, :number, :size, :fuel_type, :notes, :_destroy]])
     end
 end
