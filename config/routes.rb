@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :components
+  resources :systems
+  resources :observations
   resources :items
   root "pages#index"
 

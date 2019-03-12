@@ -7,68 +7,56 @@
     <%= form.file_field :cover %>
   </div>
 
-  <div class="mt-5">
-    <div style="border-bottom: 2px solid #111; width: 100%;"></div>
-    <% questions.each do |q| %>
-      <%= form.fields_for :responses, q.responses.first do |r| %>
-        <h3 class="mt-5"><%= q.component %></h3 class="mt-5">
+    <% form.fields_for :systems, systems do |system| %>
+      <div class="form-group mt-4">
+        <%= system.text_field :name, class: "form-control", placeholder: "System Name" %> 
+      </div>
+      <div class="form-group mt-4">
+        <%= system.fields_for :components do |component| %>
+           <%= component.text_field :name, class: "form-control", placeholder: "Component Name" %> 
 
-<!--         <%# q.choices.order(id: :asc).each do |choice| %>
-          <div class="col">
-            <%#= r.label choice.choice %>
-            <%#= r.radio_button :choice_id, choice.id, data: {action: "click->report#save"} %>
-          </div>
-        <%# end %> -->
-
-        <div class="form-group mt-4">
-          <%= r.select :observation, Response.observations.keys.map { |o| [o.humanize, o] }, {prompt: true, selected: q.responses.first.observation}, {class: "form-control", placeholder: "Response", rows: "5", data: {action: "change->report#save"}} %>
-        </div>
-
-        <div class="form-group mt-4">
-          <%= r.text_area :response, class: "form-control", placeholder: "Response", rows: "5", data: {action: "keyup->report#save"} %>
-        </div>
-
-
-        <div class="form-group mt-4">
-          <% q.responses.first.images.each do |img| %>
-            <%= link_to image_tag(img, width: "100px", data: {action: "click->report#choose", target: "report.image", id: "#{img.blob.id}"}) %>
-          <% end %>
-        </div>
-
-        <div class="form-group mt-4">
-          <%= r.file_field :images, multiple: true, data: {action: "change->report#save", target: "report.item"} %>
-        </div>
-
-        <h6>Items</h6>
-
-        <div class="card">
-          <div class="card-body">
-            <div data-controller="nested-form">
-              <template data-target="nested-form.template">
-                <%= r.fields_for :items, Item.new, child_index: 'NEW_RECORD' do |item| %>
-                  <%= render "item_fields", form: item %>
-                <% end %>
-              </template>
-
-              <%= r.fields_for :items do |item| %>
-                <%= render "item_fields", form: item %>
-              <% end %>
-
-              <div class="mb-3" data-target="nested-form.links">
-                <%= link_to "Add Item", "#", class: "btn btn-primary btn-sm", data: {action: "click->nested-form#add_association"} %>
+            <%= component.fields_for :observations do |observation| %>
+              <div class="form-group mt-4">
+                <div class="row">
+                  <div class="col">
+                    <%= observation.text_field :name, class: "form-control", placeholder: "Observation Name" %>
+                  </div>
+                  <div class="col">
+                    <%= observation.text_field :defect, class: "form-control", placeholder: "Observation Defect" %>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+              <div class="form-group mt-4">
+                <%= observation.text_field :description, class: "form-control", placeholder: "Observation Description" %>
+              </div>
+            <% end %>
 
-      <% end %>
-      <hr>
+            <%= component.fields_for :items do |item| %>
+              <div class="form-group mt-4">
+                <div class="row">
+                  <div class="col">
+                    <%= item.text_field :name, class: "form-control", placeholder: "Item Name" %>
+                  </div>
+                  <div class="col">
+                    <%= item.text_field :defect, class: "form-control", placeholder: "Item Defect" %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mt-4">
+                <%= item.text_field :description, class: "form-control", placeholder: "Item Description" %>
+              </div>
+            <% end %>
+        <% end %>
+      </div>
     <% end %>
+
     <div class="row justify-content-between">
       <%= link_to "Back", "#", class: "btn btn-primary", data: {action: "click->report#back"} %>
       <%= link_to "Next", "#", class: "btn btn-primary", data: {action: "click->report#next"} %>
     </div>
-  </div>
+
+
+  
 <!--  
   <div class="actions">
     <%#= link_to "See Report", report_path(@report), class: "btn btn-primary" %>

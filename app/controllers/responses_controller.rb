@@ -70,6 +70,7 @@ class ResponsesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
       params.require(:response).permit(:report_id, :question_id, :choice_id, :response, :observation, 
-        item: [:id, :number, :size, :fuel_type, :notes, :_destroy])
+        item: [:id, :number, :size, :fuel_type, :notes, :_destroy],
+        observation: [:id, :name, :defect, :description, :_destroy])
     end
 end
