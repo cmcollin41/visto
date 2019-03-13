@@ -1,4 +1,6 @@
+
 <%= form_with(model: question, local: true) do |form| %>
+
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -26,13 +28,7 @@
     <%= form.text_field :component, class: "form-control" %>
   </div>
 
-
-  <div class="form-group">
-    <%= form.label :question %>
-    <%= form.text_area :question, class: "form-control" %>
-  </div>
-
-  <h6>Choices</h6>
+  <h6>Observation</h6>
 
   <div class="card">
     <div class="card-body">

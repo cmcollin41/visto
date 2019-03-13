@@ -15,7 +15,7 @@
 
         <% q.choices.order(id: :asc).each do |choice| %>
           <div class="col">
-            <%= r.label choice.choice %>
+            <%= r.label choice.choice.humanize %>
             <%= r.radio_button :choice_id, choice.id, data: {action: "click->report#save"} %>
           </div>
         <% end %>
