@@ -1,24 +1,25 @@
 <div class="container mt-5">
 	<div class="row justify-content-center">
-		<div class="col-md-12">
+		<div class="col-md-10">
 			<div class="shadow">
 				<%= image_tag("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=#{@report.address.latitude},#{@report.address.longitude}&fov=90&pitch=0&key=AIzaSyARQ8k0F667JhDrekyvRKA_NhDrVei3rGI", width: "100%", class: "streetview") %>
 			</div>
 		</div>
-		<div class="col-md-12 mt-4 pb-4" style="border-bottom: 1px solid #111;">
+		<div class="col-md-10 mt-4 pb-4" style="border-bottom: 1px solid #111;">
 			<div class="d-flex justify-content-between">
 				<div>
 			  	<h1 class="h2"><%= @report.address.long_address %></h1>
 			  	<h6><%= @report.admin.name %> inspected this home.</h6>
 				</div>
-			  <div class="card bg-primary text-center" style="width: 200px;">
+<!-- 			  <div class="card bg-primary text-center" style="width: 200px;">
 			  	<div class="card-body">
 			  		<span class="display-4 bold">87</span><br>
 			  		HomeScore
 			  	</div>
-			  </div>
+			  </div> -->
 			</div>
 		</div>
+	</div>
 
 <!-- 		<div class="col-md-10 mt-5" data-controller="report" data-target="report.next report.back" data-report-section="1" data-report-url="/info?id=<%= @report.id %>">
 
@@ -26,56 +27,468 @@
 
 		<div class="loader d-none" id="loader"></div> -->
 
-		<div class="col-md-12 justify-content-center mt-5">
-		<h2>Energy</h2>
-		<hr>
-			<div class="row justify-content-center">
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center">
-							<h1>17</h1>
-							WINDOWS
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-home-page.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Roof</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>ASPHALT SHINGLE</h1>
+									ROOF-COVERING
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>1</h1>
+									CHIMNEY
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>4</h1>
+									VENTS
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center">
-							<h1>14</h1>
-							DOORS
-						</div>
+				<div class="card my-4" style="background: #e8f5e9; border: 1px solid #81c784">
+					<div class="card-body">
+						<p class="lead">There were no observed indications of an active roof leak.</p>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center">
-							<h1>14</h1>
-							DOORS
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-home.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Exterior</h2>
+					<hr>
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>17</h1>
+									WINDOWS
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>14</h1>
+									DOORS
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Brick</h1>
+									WALL-COVERING
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- Card body -->
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+		<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-unchecked-checkbox.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>BFCS</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Slab</h1>
+									FOUNDATION
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Bathroom</h1>
+									UNDER FLOOR SPACE
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<table class="table mt-5">
-		  <thead>
-		    <tr>
-		      <th scope="col">Date</th>
-		      <th scope="col">kwh</th>
-		      <th scope="col">Cost</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		   	<% @utility["bills"].each do |u| %>
-		   	<tr>
-		   		<% a = DateTime.parse(u["base"]["bill_end_date"]) %>
-					<td><%= a.strftime("%B %Y") %></td>
-					<td><%= u["base"]["bill_total_kwh"] %></td>
-					<td><%= u["base"]["bill_total_cost"] %></td>
-				</tr>
-				<% end %>
-		  </tbody>
-		</table>
+	</div><!-- energy row -->
 
-	</div>
-</div>
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-sun.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Heating</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Nest</h1>
+									THERMOSTAT
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Kitchen</h1>
+									THERMOSTAT LOC.
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Gas</h1>
+									ENERGY SOURCE
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Air</h1>
+									HEATING METHOD
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-snowflake.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Heating</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>NEST</h1>
+									THERMOSTAT
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>KITCHEN</h1>
+									THERMOSTAT LOCATION
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Central</h1>
+									COOLING METHOD
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-support.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Plumbing</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Public</h1>
+									WATER SUPPLY
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>40g</h1>
+									WATER HEATER
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Electric</h1>
+									WATER HEATER
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>NE Wall</h1>
+									WATER SHUT OFF VALVE
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>NS Wall</h1>
+									FUEL SHUT OFF VALVE
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>SW Wall</h1>
+									FUEL STORAGE
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-quick-mode-on.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Electrical</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>100 AMP</h1>
+									MAIN SERVICE
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>NM Cable</h1>
+									WIRE TYPE
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-fireplace.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Fireplace</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Gas</h1>
+									TYPE
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-home-page.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Attic, Insulation, & Ventilation</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Kind</h1>
+									INSULATION
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>13in</h1>
+									AVG DEPTH
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-fireplace.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Doors, Windows, & Stairs</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>17</h1>
+									WINDOWS
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>14</h1>
+									DOORS
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>Automatic</h1>
+									GARAGE DOORS
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-1 text-center">
+			<%= image_tag("icons8-charging-battery.svg", width: "75px") %>
+		</div>
+		<div class="col-md-9">
+			<div class="card shadow">
+				<div class="card-body">
+					<h2>Energy</h2>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>$1,200</h1>
+									ANNUAL COST
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>$184.57</h1>
+									AVG MONTHLY COST
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 my-3">
+							<div class="card">
+								<div class="card-body text-center">
+									<h1>709</h1>
+									AVG MONTHLY KWH
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table mt-5">
+				  <thead>
+				    <tr>
+				      <th scope="col">Date</th>
+				      <th scope="col">kwh</th>
+				      <th scope="col">Cost</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				   	<% @utility["bills"].each do |u| %>
+				   	<tr>
+				   		<% a = DateTime.parse(u["base"]["bill_end_date"]) %>
+							<td><%= a.strftime("%B %Y") %></td>
+							<td><%= u["base"]["bill_total_kwh"] %></td>
+							<td><%= u["base"]["bill_total_cost"] %></td>
+						</tr>
+						<% end %>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</div><!-- energy row -->
+
+
+
+</div><!-- container -->
 

@@ -1,3 +1,3 @@
 Rubillow.configure do |configuration|
-  configuration.zwsid = "X1-ZWz1fb46488hzf_8tgid"
+  configuration.zwsid = Rails.application.credentials.zillow[:zillow_id]
 end

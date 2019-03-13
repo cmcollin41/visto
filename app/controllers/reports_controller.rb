@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  layout "reports", only: [:show]
   skip_before_action :verify_authenticity_token
   before_action :set_report, only: [:show, :edit, :update, :destroy, :form, :info]
   before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update]
