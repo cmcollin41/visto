@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :components
+  resources :systems
+  resources :observations
+  resources :items
   root "pages#index"
 
 
@@ -43,6 +47,7 @@ Rails.application.routes.draw do
 
   get "/images", to: "reports#images", as: "images"
   get "/form", to: "reports#form", as: "form"
+  get "/info", to: "reports#info", as: "info"
 
 
   delete "/delete_image", to: "reports#delete_image", as: "delete_image"

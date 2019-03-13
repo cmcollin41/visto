@@ -50,6 +50,8 @@ gem 'bootstrap', '~> 4.2.1'
 # Zillow
 gem "rubillow"
 
+gem "httparty"
+
 gem 'friendly_id', '~> 5.2.4'
 
 # Reduces boot times through caching; required in config/boot.rb

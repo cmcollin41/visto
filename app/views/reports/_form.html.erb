@@ -1,4 +1,4 @@
-<%= form_with(model: report, data: {target: "report.form report.save", action: "ajax:success->report#success ajax:error->report#error"}) do |form| %>
+<%= form_with(model: report) do |form| %>
 
   <div data-target="report.status" style="position:fixed; top: 0; left: 0; right: 0; z-index: 100000;">
   </div>
@@ -7,42 +7,62 @@
     <%= form.file_field :cover %>
   </div>
 
-  <div class="mt-5">
-    <div style="border-bottom: 2px solid #111; width: 100%;"></div>
-    <% questions.each do |q| %>
-      <%= form.fields_for :responses, q.responses.first do |r| %>
-        <h3 class="mt-5"><%= q.question %></h3 class="mt-5">
+      <h6><%= system.name %></h6> 
+      <div class="form-group mt-4">
+        <%= form_with(model: system.components.new, data: {target: "report.form report.save", action: "ajax:success->report#success ajax:error->report#error"}) do |component| %>
+           <%= component.select :name, Component.names.keys, {}, {class: "form-control custom-select"}%> 
 
-        <% q.choices.order(id: :asc).each do |choice| %>
-          <div class="col">
-            <%= r.label choice.choice.humanize %>
-            <%= r.radio_button :choice_id, choice.id, data: {action: "click->report#save"} %>
-          </div>
+
+            <div class="card mt-4">
+              <div class="card-body">
+                <div data-controller="nested-form">
+                  <template data-target="nested-form.template">
+                    <%= component.fields_for :observations, Observation.new, child_index: 'NEW_RECORD' do |observation| %>
+                      <%= render "observation_fields", form: observation %>
+                    <% end %>
+                  </template>
+
+                  <%= component.fields_for :observations do |observation| %>
+                    <%= render "observation_fields", form: observation %>
+                  <% end %>
+
+                  <div class="mb-3" data-target="nested-form.links">
+                    <%= link_to "Add Observation", "#", class: "btn btn-primary btn-sm", data: {action: "click->nested-form#add_association"} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card mt-4">
+              <div class="card-body">
+                <div data-controller="nested-form">
+                  <template data-target="nested-form.template">
+                    <%= component.fields_for :items, Item.new, child_index: 'NEW_RECORD' do |item| %>
+                      <%= render "item_fields", form: item %>
+                    <% end %>
+                  </template>
+
+                  <%= component.fields_for :items do |item| %>
+                    <%= render "item_fields", form: item %>
+                  <% end %>
+
+                  <div class="mb-3" data-target="nested-form.links">
+                    <%= link_to "Add Item", "#", class: "btn btn-primary btn-sm", data: {action: "click->nested-form#add_association"} %>
+                  </div>
+                </div>
+              </div>
+            </div>
         <% end %>
+      </div>
 
-        <div class="form-group mt-4">
-          <%= r.text_area :response, class: "form-control", placeholder: "Response", rows: "5", data: {action: "keyup->report#save"} %>
-        </div>
-
-
-        <div class="form-group mt-4">
-            <% q.responses.first.images.each do |img| %>
-              <%= link_to image_tag(img, width: "100px", data: {action: "click->report#choose", target: "report.image", id: "#{img.blob.id}"}) %>
-            <% end %>
-        </div>
-
-        <div class="form-group mt-4">
-            <%= r.file_field :images, multiple: true, data: {action: "change->report#save", target: "report.item"} %>
-        </div>
-
-      <% end %>
-      <hr>
-    <% end %>
     <div class="row justify-content-between">
       <%= link_to "Back", "#", class: "btn btn-primary", data: {action: "click->report#back"} %>
       <%= link_to "Next", "#", class: "btn btn-primary", data: {action: "click->report#next"} %>
     </div>
-  </div>
+
+
+  
 <!--  
   <div class="actions">
     <%#= link_to "See Report", report_path(@report), class: "btn btn-primary" %>

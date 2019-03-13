@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_035709) do
+ActiveRecord::Schema.define(version: 201903123193641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,11 +64,19 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
   end
 
   create_table "choices", force: :cascade do |t|
-    t.text "choice"
+    t.integer "choice"
     t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
+  create_table "components", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_components_on_system_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -102,6 +110,18 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "items", force: :cascade do |t|
+    t.integer "kind"
+    t.string "number"
+    t.string "size"
+    t.integer "fuel_type"
+    t.text "notes"
+    t.bigint "component_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["component_id"], name: "index_items_on_component_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.float "price", default: 299.0
     t.time "time"
@@ -112,6 +132,16 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_jobs_on_address_id"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
+  end
+
+  create_table "observations", force: :cascade do |t|
+    t.string "name"
+    t.integer "defect", default: 0
+    t.text "description"
+    t.bigint "component_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["component_id"], name: "index_observations_on_component_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -145,6 +175,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
   end
 
   create_table "responses", force: :cascade do |t|
+    t.integer "observation"
     t.text "response"
     t.bigint "report_id"
     t.bigint "question_id"
@@ -155,10 +186,21 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
     t.index ["report_id"], name: "index_responses_on_report_id"
   end
 
+  create_table "systems", force: :cascade do |t|
+    t.integer "name"
+    t.bigint "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_systems_on_report_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "questions"
+  add_foreign_key "components", "systems"
+  add_foreign_key "items", "components"
   add_foreign_key "jobs", "addresses"
   add_foreign_key "jobs", "customers"
+  add_foreign_key "observations", "components"
   add_foreign_key "properties", "addresses"
   add_foreign_key "properties", "customers"
   add_foreign_key "reports", "addresses"
@@ -166,4 +208,5 @@ ActiveRecord::Schema.define(version: 2019_02_18_035709) do
   add_foreign_key "reports", "customers"
   add_foreign_key "responses", "questions"
   add_foreign_key "responses", "reports"
+  add_foreign_key "systems", "reports"
 end

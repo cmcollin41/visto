@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :form]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :form, :info]
   before_action :authenticate_admin!, only: [:index, :new, :create, :edit, :update]
 
   # GET /reports
@@ -13,18 +13,36 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-    @responses = @report.responses
-    @questions = Question.where(active: true).includes(:choices).includes(:responses)
+    # @responses = @report.responses
+    # @questions = Question.where(active: true).includes(:choices).includes(:responses)
+
+    utility = HTTParty.get('https://utilityapi.com/api/v2/bills?meters=323797', headers: { "Authorization" => 'Bearer 3697067769524207bd1208bd170be83c'})
+    @utility = utility.parsed_response
+  end
+
+  def info
+    #include params to filter the data
+    # @questions = Question.where("system = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
+    # @responses = @report.responses
+    @score = Response.sum(:observation)
+    @t_score = (Response.count * 5)
+    render partial: 'info', locals: {report: @report}, layout: false
   end
 
   # GET /reports/new
   def new
     @report = current_admin.reports.create(address_id: params[:address], customer_id: params[:customer])
-    questions = Question.where(active: true).order(id: :asc)
-    
-    questions.each do |q|
-      @report.responses.create(question_id: q.id)
+    # questions = Question.where(active: true).order(id: :asc)
+
+
+    10.times do |i|
+      a = System.create(name: i, report_id: @report.id)
+      a.save
     end
+    
+    # questions.each do |q|
+    #   @report.responses.create(question_id: q.id)
+    # end
 
     redirect_to edit_report_path(@report)
   end
@@ -33,8 +51,8 @@ class ReportsController < ApplicationController
   def edit
     @address = Address.find(@report.address_id).long_address
     @customer = Customer.find(@report.customer_id).name
-    @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc).group_by(&:system).values.sort
-    @responses = @report.responses.includes(:question) 
+    # @questions = Question.includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc).group_by(&:system).values.sort
+    # @responses = @report.responses.includes(:question) 
 
     respond_to do |format|
       format.html
@@ -44,15 +62,25 @@ class ReportsController < ApplicationController
   def form
     #include params to filter the data
 
-    @questions = Question.where("system = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
-    @responses = @report.responses.includes(:question)   
-    render partial: 'form', locals: {report: @report, questions: @questions, responses: @responses}, layout: false
+    # @questions = Question.where("system = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
+    # @responses = @report.responses.includes(:question) 
+    # render partial: 'form', locals: {report: @report, questions: @questions, responses: @responses}, layout: false
+
+    @system = System.where("name = ?", params[:question]).order(id: :asc)
+    puts "////////////// #{@system} ////////////////////"
+    render partial: 'form', locals: {report: @report, system: @system[0]}, layout: false
   end
 
   def images
     @question = Question.find(params[:question])
     @response = @question.responses.first
     render partial: 'images', locals:{response: @response, r: params[:r]}, layout: false
+  end
+
+  def observations
+    @questions = Question.where("system = ?", params[:question]).order(id: :asc).includes(:responses).where(responses: {report_id: @report.id}).order(id: :asc)
+    @responses = @report.responses.includes(:question) 
+    render partial: 'observation_fields', locals: {report: @report, questions: @questions, responses: @responses}, layout: false
   end
 
 
@@ -117,6 +145,15 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:address_id, :customer_id, :admin_id, :cover, responses_attributes: [:id, :report_id, :question_id, :choice_id, :response, :_destroy, images: []])
+      params.require(:report).permit(:address_id, :customer_id, :admin_id, :cover, 
+        systems_attributes: [:id, :name, :_destroy,
+        components_attributes: [:id, :name, :_destroy,
+        items_attributes: [:id, :kind, :number, :size, :fuel_type, :notes, :_destroy],
+        observations_attributes: [:id, :name, :defect, :description, :_destroy, images: [] ]]])
     end
 end
+
+ # params.require(:report).permit(:address_id, :customer_id, :admin_id, :cover, 
+ #        responses_attributes: [:id, :report_id, :question_id, :choice_id, :response, :observation, :_destroy, images: [],
+ #        items_attributes: [:id, :kind, :number, :size, :fuel_type, :notes, :_destroy],
+ #        observations_attributes: [:id, :name, :defect, :description, :_destroy, images: [] ]])

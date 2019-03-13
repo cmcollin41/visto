@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
-	has_many :choices, inverse_of: :question
-	has_many :responses, inverse_of: :question
+	has_many :choices, inverse_of: :question, dependent: :destroy
+	has_many :responses, inverse_of: :question, dependent: :destroy
 
 	enum system: { roof: 1, exterior: 2, bfcs: 3, heating: 4, cooling: 5, plumbing: 6, electrical: 7,
 	attic: 8, interior: 9, energy: 10 }
